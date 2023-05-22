@@ -14,6 +14,7 @@
         height: 358,
         toolbar: {
           show : false,
+          bjir
         }
       },
       plotOptions: {
