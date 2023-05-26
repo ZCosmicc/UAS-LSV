@@ -1,3 +1,38 @@
+<?php
+require ("model.php");
+session_start();
+  if (isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+  }
+
+  if (isset($_POST["submit"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
+
+    //Email check
+    if (mysqli_num_rows($result) === 1) {
+      //Password check
+      $row = mysqli_fetch_assoc($result);
+      if (password_verify($password, $row["password"])) {
+        //Session set
+        $_SESSION["login"] = true;
+        $_SESSION["user_id"] = $row["user_id"];
+        $_SESSION["full_name"] = $row["full_name"];
+        $_SESSION["email"] = $row["email"];
+        $_SESSION["password"] = $row["password"];
+        $_SESSION["user_photo"] = $row["user_photo"];
+        $_SESSION["role"] = $row["role"];
+        header("Location: index.php");
+        exit;
+      } else {
+        echo "<script>alert('Email or Password Invalid!');</script>";
+      }
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,21 +75,21 @@
           <h3>Hello There!</h3>
           <p>Welcome back, please login to you account</p>
         </div>
-        <form>
+        <form method="post">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username or Email" required>
+            <input type="text" class="form-control" name="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
           </div>
           <div class="form-bottom">
             <div class="forgot-pass">
               <a href="#"> Forgot password? </a>
             </div>
           </div>
-          <a href="index.html" class="btn btn-primary">Login</a>
+          <button type="submit" name="submit" class="btn btn-primary">Login</button>
         </form>
-        <span>Doesn't have account? Create <a href="registerPage.html"> Account.</a></span>
+        <span>Doesn't have account? Create <a href="registerPage.php"> Account.</a></span>
       </div>
     </div>
     <div class="col-lg-8 d-flex justify-content-center align-items-center">

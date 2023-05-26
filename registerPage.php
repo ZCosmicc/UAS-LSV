@@ -1,3 +1,30 @@
+<?php
+require ("model.php");
+session_start();
+  if (isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+  }
+
+  if (isset($_POST["submit"])) {
+    if (register($_POST) > 0) {
+      echo 
+      "<script>
+        alert('User Successfully Registered!');
+        document.location.href = 'loginPage.php';
+      </script>";
+    } else {
+      echo 
+      "<script>
+        alert('User Unsuccessful to Register!');
+        document.location.href = 'registerPage.php';
+      </script>";
+    }
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,22 +59,19 @@
           <h3>Lets get you set up!</h3>
           <p>Create your account</p>
         </div>
-        <form>
+        <form method="post">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" required>
+            <input type="text" class="form-control" name="full_name" placeholder="Full Name" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Email" required>
+            <input type="text" class="form-control" name="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
           </div>
-          <div class="form-group">
-            <input class="form-control" placeholder="Confirm password" required>
-          </div>
-          <a href="#" class="btn btn-primary">Register</a>
+          <button type="submit" name="submit" class="btn btn-primary">Register</button>
+          <p class="mb-0">Already have an account? <a href="loginPage.php"> Login.</a></p>
         </form>
-        <p class="mb-0">By clicking register. you agree on our <a href="#"> Terms and Condition.</a></p>
       </div>
     </div>
     <div class="col-lg-8 d-flex justify-content-center align-items-center">

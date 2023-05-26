@@ -1,3 +1,13 @@
+<?php
+session_start();
+require ("model.php");
+
+  if (!isset($_SESSION["login"])) {
+    header("Location: loginPage.php");
+    exit;
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -595,7 +605,7 @@
 									<a class="dropdown-item" href="#"> <i class="la la-wechat"></i>  Downloads </a>
 									<div class="separator my-2"></div>
 									<a class="dropdown-item" href="#"> <i class="la la-cog"></i> Account Setting </a>
-									<a class="btn btn-outline-primary outline-gray btn-sm mt-3" href="#"> <i class="la la-power-off"></i> Logout </a>
+									<a class="btn btn-outline-primary outline-gray btn-sm mt-3" href="logout.php"> <i class="la la-power-off"></i> Logout </a>
 								</div>
 							</div>
 						</li>
