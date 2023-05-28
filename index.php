@@ -39,21 +39,15 @@ require ("model.php");
 		<div class="logo-color logo-color-light">
 			<div class="logo">
 				<div class="logo-middle">            
-					<a href="index.html"><img src="src\assets\images\logo.svg" alt="Logo"></a>
+					<a href="index.php"><img src="src\assets\images\logo.svg" alt="Logo"></a>
 				</div>
 			</div>
 		</div>
 		<div class="header-topbar">
 			<div class="topbar-left">
-				<a class="side-toggle" href="#!">
+				<a class="side-toggle" href="index.php">
 					<i class="la la-bars"></i>	
 				</a>
-				<div class="search-box">
-					<div class="search">
-						<input class="form-control border-0" type="search" placeholder="Type something..." aria-label="Search">
-						<a href="#">	<i class="la la-search"></i> </a>
-					</div>
-				</div>
 			</div>
 			<div class="topbar-right">
 				<ul>
