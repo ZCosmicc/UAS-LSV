@@ -45,7 +45,7 @@ require ("model.php");
 		</div>
 		<div class="header-topbar">
 			<div class="topbar-left">
-				<a class="side-toggle" href="index.php">
+				<a class="side-toggle" href="#!">
 					<i class="la la-bars"></i>	
 				</a>
 			</div>
