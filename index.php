@@ -625,7 +625,7 @@ require ("model.php");
       <ul class="sidebar-menu">
         <li class="sidebar-header"> Navigation </li>
         <li>
-          <a href="index.html">
+          <a href="index.php">
             <i class="la la-home"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -853,82 +853,7 @@ require ("model.php");
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-5">
-					<div class="card">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Support tickets</h4>
-							</div>
-							<div class="card-title-right">
-								<a class="btn btn-primary btn-sm" href="#">Create a ticket</a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="support-ticket">
-								<a class="ticket-item" href="#">
-									<div class="avatar avatar-xl bg-soft-primary">
-										<span class="avatar-name text-primary">OX</span>
-									</div>
-									<div class="ticket-info">
-										<span class="text-light ticket-customer">@airi_satou </span>
-										<span class="badge badge-overlay-danger">Bug</span>
-										<h5 class="title mt-2">Post Title under Post Image</h5>
-										<p class="text-light mb-0">Doloribus totam non impedit ipsa, aut rem sit earum illo....</p>
-									</div>
-									<div class="ticket-time text-right">
-										<span><i class="la la-calendar-o"></i> 2 hours ago</span>
-										<span><i class="la la-comment-o"></i>  5</span>
-									</div>
-								</a>
-								<a class="ticket-item" href="#">
-									<div class="avatar avatar-xl bg-soft-primary">
-										<span class="avatar-name text-primary">SM</span>
-									</div>
-									<div class="ticket-info">
-										<span class="text-light ticket-customer">@cedric_kelly</span>
-										<span class="badge badge-overlay-success">Question</span>
-										<h5 class="title mt-2">Sicial media link problems</h5>
-										<p class="text-light mb-0">Doloribus totam non impedit ipsa, aut rem sit earum illo....</p>
-									</div>
-									<div class="ticket-time text-right">
-										<span><i class="la la-calendar-o"></i> 3 hours ago</span>
-										<span><i class="la la-comment-o"></i>  2</span>
-									</div>
-								</a>
-								<a class="ticket-item" href="#">
-									<div class="avatar avatar-xl bg-soft-primary">
-										<span class="avatar-name text-primary">DC</span>
-									</div>
-									<div class="ticket-info">
-										<span class="text-light ticket-customer">@jena_gaines </span>
-										<span class="badge badge-overlay-danger">Bug</span>
-										<h5 class="title mt-2">Category page</h5>
-										<p class="text-light mb-0">Doloribus totam non impedit ipsa, aut rem sit earum illo....</p>
-									</div>
-									<div class="ticket-time text-right">
-										<span><i class="la la-calendar-o"></i> 6 hours ago</span>
-										<span><i class="la la-comment-o"></i>  10</span>
-									</div>
-								</a>
-								<a class="ticket-item" href="#">
-									<div class="avatar avatar-xl bg-soft-primary">
-										<span class="avatar-name text-primary">BA</span>
-									</div>
-									<div class="ticket-info">
-										<span class="text-light ticket-customer">@tiger_nixon</span>
-										<span class="badge badge-overlay-info">Mega menu</span>
-										<h5 class="title mt-2">Sicial media link problems</h5>
-										<p class="text-light mb-0">Doloribus totam non impedit ipsa, aut rem sit earum illo....</p>
-									</div>
-									<div class="ticket-time text-right">
-										<span><i class="la la-calendar-o"></i> 10 hours ago</span>
-										<span><i class="la la-comment-o"></i>  4</span>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-title">
@@ -1088,43 +1013,6 @@ require ("model.php");
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Latest activity</h4>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="activity">
-								<div class="activity-item">
-									<div class="date">Sep 25</div>
-									<div class="text">Responded to need <a href="#!">“Volunteer opportunity”</a></div>
-								</div>
-								<div class="activity-item">
-									<div class="date">Sep 24</div>
-									<div class="text">Added an interest <a href="#!">“Volunteer Activities”</a></div>
-								</div>
-								<div class="activity-item">
-									<div class="date">Sep 23</div>
-									<div class="text">Joined the group <a href="#!">“Boardsmanship Forum”</a></div>
-								</div>
-								<div class="activity-item">
-									<div class="date">Sep 21</div>
-									<div class="text">Responded to need <a href="#!">“In-Kind Opportunity”</a></div>
-								</div>
-								<div class="activity-item">
-									<div class="date">Sep 18</div>
-									<div class="text">Created need <a href="#!">“Volunteer Opportunity”</a></div>
-								</div>
-								<div class="activity-item pb-2">
-									<div class="date">Sep 17</div>
-									<div class="text">Attending the event <a href="#!">“Some New Event”</a></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-title">
