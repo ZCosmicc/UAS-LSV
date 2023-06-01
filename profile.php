@@ -1,3 +1,14 @@
+<?php
+session_start();
+require ("model.php");
+
+  if (!isset($_SESSION["login"])) {
+    header("Location: loginPage.php");
+    exit;
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,17 +157,26 @@
 	<div class="sidebar-panel nicescrollbar sidebar-panel-light">
 		<ul class="sidebar-menu">
 		  <li class="sidebar-header"> Navigation </li>
+		  <?php if ($_SESSION["role"] === "admin"): ?>
+			<li>
+			  <a href="index.php">
+				<i class="la la-home"></i> <span>Dashboard</span>
+			  </a>
+			</li>
+		  <?php elseif ($_SESSION["role"] === "member"): ?>
+			<li class="hidden-item">
+			</li>
+		  <?php endif; ?>
 		  <li>
-			<a href="index.php">
-			  <i class="la la-home"></i> <span>Dashboard</span>
+			<a href="projectsPage.php">
+			  <i class="la la-file"></i> <span>Projects</span>
 			</a>
 		  </li>
-		<li>
-		  <a href="projectsPage.php">
-			<i class="la la-file"></i> <span>Projects </span>
-		  </a>
-		</li>
-	  </ul>
+		  <li>
+			<a href="calendar-list.php">
+			  <i class="la la-calendar"></i> <span>Calendar</span>
+			</a>
+		</ul>
 	</div>
 	<!-- **********  main-panel  ********** -->
 	<div class="main-panel">

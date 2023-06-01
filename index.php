@@ -134,7 +134,7 @@ require ("model.php");
 									</div>
 								</div>
 								<div class="profile-info">
-									<a class="dropdown-item" href="profile.html"> <i class="la la-edit"></i>  My Profile </a>
+									<a class="dropdown-item" href="profile.php"> <i class="la la-edit"></i>  My Profile </a>
 									<a class="dropdown-item" href="#"> <i class="la la-refresh"></i> Notifications <span class="badge badge-danger float-right">03</span></a>
 									<div class="separator my-2"></div>
 									<a class="btn btn-outline-primary outline-gray btn-sm mt-3" href="logout.php"> <i class="la la-power-off"></i> Logout </a>
