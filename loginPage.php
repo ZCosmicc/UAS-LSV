@@ -51,7 +51,6 @@ if (isset($_POST["submit"])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from infinitysoftway.com/oxoury/login-01.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 14:00:35 GMT -->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -134,5 +133,4 @@ if (isset($_POST["submit"])) {
 	
 </body>
 
-<!-- Mirrored from infinitysoftway.com/oxoury/login-01.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 14:00:35 GMT -->
 </html>

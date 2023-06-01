@@ -94,7 +94,7 @@ function logout()
     session_destroy();
 
     // Cookie Delete
-    setcookie("id_user", "", time() - 60);
+    setcookie("user_id", "", time() - 60);
     setcookie("key", "", time() - 60);
 
     header("Location: index.php");
@@ -126,5 +126,13 @@ function getUserRole($email) {
     return $role;
 }
 
+// Get user data by ID
+function getUserData($table, $userID)
+{
+    global $koneksi;
+    $result = mysqli_query($koneksi, "SELECT * FROM $table WHERE user_id = $userID");
+    $row = mysqli_fetch_assoc($result);
+    return $row;
+}
 
 ?>

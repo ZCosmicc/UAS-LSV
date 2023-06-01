@@ -7,12 +7,15 @@ require ("model.php");
     exit;
   }
 
+  $userID = $_SESSION["user_id"];
+  $userData = getUserData("users", $userID);
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from infinitysoftway.com/oxoury/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 14:00:32 GMT -->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,8 +126,8 @@ require ("model.php");
 									<div class="row">
 										<div class="col-8">
 											<div class="profile-name">
-												<h4>Luben Ivan</h4>
-												<a href="#"> lubenivan@gmail.com</a>
+												<h4><?php echo $userData["full_name"]; ?></h4>
+												<a href="#"><?php echo $userData["email"]; ?></a>
 											</div>
 										</div>
 										<div class="col-4">
@@ -194,14 +197,14 @@ require ("model.php");
 						<img class="img-fluid" src="src\assets\images\team\04.jpg" alt="">
 					</div>
 					<div class="user-name mt-3 text-center">
-						<h5>Airi Satou</h5>
-						<span>Web designer <strong class="text-primary"> @invision </strong></span>
+						<h5><?php echo $userData["full_name"]; ?></h5>
+						<span><strong class="text-primary"><?php echo $userData["role"]; ?></strong></span>
 					</div>
 					<div class="user-info mt-4">
 						<h5>User information</h5>
 						<div class="my-3 ">
 							<h6>Email:</h6>
-							<span>airisatou@gmail.com</span>
+							<span><?php echo $userData["email"]; ?></span>
 						</div>
 						<div class="my-3 ">
 							<h6>Phone:</h6>
@@ -245,5 +248,4 @@ require ("model.php");
 	
 </body>
 
-<!-- Mirrored from infinitysoftway.com/oxoury/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 14:00:32 GMT -->
 </html>

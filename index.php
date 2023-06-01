@@ -2,16 +2,21 @@
 session_start();
 require ("model.php");
 
-  if (!isset($_SESSION["login"])) {
-    header("Location: loginPage.php");
-    exit;
+	if (isset($_SESSION["login"])) {
+	// Redirect based on user role
+	if ($_SESSION["role"] === "member") {
+	  header("Location: projectsPage.php");
+	  exit;
+	} 
   }
+
+  $userID = $_SESSION["user_id"];
+  $userData = getUserData("users", $userID);
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from infinitysoftway.com/oxoury/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 13:59:28 GMT -->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -122,8 +127,8 @@ require ("model.php");
 									<div class="row">
 										<div class="col-8">
 											<div class="profile-name">
-												<h4>Luben Ivan</h4>
-												<a href="#"> lubenivan@gmail.com</a>
+												<h4><?php echo $userData["full_name"]; ?></h4>
+												<a href="#"><?php echo $userData["email"]; ?></a>
 											</div>
 										</div>
 										<div class="col-4">
@@ -694,5 +699,4 @@ require ("model.php");
 
 </body>
 
-<!-- Mirrored from infinitysoftway.com/oxoury/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 May 2023 13:59:55 GMT -->
 </html>
