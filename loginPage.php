@@ -1,37 +1,52 @@
 <?php
 require ("model.php");
 session_start();
-  if (isset($_SESSION["login"])) {
+
+if (isset($_SESSION["login"])) {
+  // Redirect based on user role
+  if ($_SESSION["role"] === "member") {
+    header("Location: projectsPage.php");
+    exit;
+  } else if ($_SESSION["role"] === "admin") {
     header("Location: index.php");
     exit;
   }
+}
 
-  if (isset($_POST["submit"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
+if (isset($_POST["submit"])) {
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+  $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
 
-    //Email check
-    if (mysqli_num_rows($result) === 1) {
-      //Password check
-      $row = mysqli_fetch_assoc($result);
-      if (password_verify($password, $row["password"])) {
-        //Session set
-        $_SESSION["login"] = true;
-        $_SESSION["user_id"] = $row["user_id"];
-        $_SESSION["full_name"] = $row["full_name"];
-        $_SESSION["email"] = $row["email"];
-        $_SESSION["password"] = $row["password"];
-        $_SESSION["user_photo"] = $row["user_photo"];
-        $_SESSION["role"] = $row["role"];
+  // Email check
+  if (mysqli_num_rows($result) === 1) {
+    // Password check
+    $row = mysqli_fetch_assoc($result);
+    if (password_verify($password, $row["password"])) {
+      // Session set
+      $_SESSION["login"] = true;
+      $_SESSION["user_id"] = $row["user_id"];
+      $_SESSION["full_name"] = $row["full_name"];
+      $_SESSION["email"] = $row["email"];
+      $_SESSION["password"] = $row["password"];
+      $_SESSION["user_photo"] = $row["user_photo"];
+      $_SESSION["role"] = $row["role"];
+
+      // Redirect based on user role
+      if ($_SESSION["role"] === "member") {
+        header("Location: projectsPage.php");
+        exit;
+      } else if ($_SESSION["role"] === "admin") {
         header("Location: index.php");
         exit;
-      } else {
-        echo "<script>alert('Email or Password Invalid!');</script>";
       }
+    } else {
+      echo "<script>alert('Email or Password Invalid!');</script>";
     }
   }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -13,6 +13,49 @@ function getData($table)
     return $rows;
 }
 
+//Register
+function register($data)
+{
+    global $koneksi;
+
+    // Set the timezone to Indonesian local time
+    date_default_timezone_set('Asia/Jakarta');
+
+    $full_name = htmlspecialchars($data["full_name"]);
+    $email = htmlspecialchars($data["email"]);
+    $password = mysqli_real_escape_string($koneksi, $data["password"]);
+    $date_created = date("Y-m-d H:i:s");
+
+    // Check if the email already exists
+    if (emailExists($email)) {
+        return 0; // Return 0 to indicate registration unsuccessful
+    }
+
+    // Encrypt password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Add new user
+    $query = "INSERT INTO users VALUES('', '$full_name', '$email', '$password', '','$date_created', 'member')";
+    $result = mysqli_query($koneksi, $query);
+
+    return mysqli_affected_rows($koneksi);
+}
+
+// Function to check if email exists
+function emailExists($email) {
+    global $koneksi;
+
+    // Sanitize the email
+    $email = mysqli_real_escape_string($koneksi, $email);
+
+    // Query to check if email exists
+    $query = "SELECT COUNT(*) AS count FROM users WHERE email = '$email'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    return $row['count'] > 0;
+}
+
 //Login
 function login($data)
 {
@@ -58,22 +101,30 @@ function logout()
     exit;
 }
 
-//Register
-function register($data)
-{
+// Get user role by email
+function getUserRole($email) {
     global $koneksi;
 
-    $full_name = htmlspecialchars($data["full_name"]);
-    $email = htmlspecialchars($data["email"]);
-    $password = mysqli_real_escape_string($koneksi, $data["password"]);
+    // Prepare the statement
+    $stmt = mysqli_prepare($koneksi, "SELECT role FROM users WHERE email = ?");
+    
+    // Bind the email parameter
+    mysqli_stmt_bind_param($stmt, "s", $email);
 
-    // Encrypt password
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    // Execute the statement
+    mysqli_stmt_execute($stmt);
 
-    // Add new user
-    $query = "INSERT INTO users VALUES('', '$full_name', '$email', '$password', '','', 'member')";
-    $result = mysqli_query($koneksi, $query);
+    // Bind the result
+    mysqli_stmt_bind_result($stmt, $role);
 
-    return mysqli_affected_rows($koneksi);
+    // Fetch the result
+    mysqli_stmt_fetch($stmt);
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+
+    return $role;
 }
+
+
 ?>

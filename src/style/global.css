@@ -6735,3 +6735,8 @@ h6,
   .comments .comment-item .media .media-body .comment-name {
     display: block;
     margin-bottom: 10px; } }
+    .hidden-item {
+      display: none;
+    }
+    
+    

@@ -1,26 +1,33 @@
 <?php
-require ("model.php");
+require("model.php");
 session_start();
-  if (isset($_SESSION["login"])) {
-    header("Location: index.php");
+
+if (isset($_SESSION["login"])) {
+  header("Location: index.php");
+  exit;
+}
+
+if (isset($_POST["submit"])) {
+  $name = $_POST["name"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  // Check if the email already exists in the database
+  if (emailExists($email)) {
+    echo "<script>alert('Email already exists. Please choose a different email.');
+          document.location.href = 'registerPage.php';</script>";
     exit;
   }
 
-  if (isset($_POST["submit"])) {
-    if (register($_POST) > 0) {
-      echo 
-      "<script>
-        alert('User Successfully Registered!');
-        document.location.href = 'loginPage.php';
-      </script>";
-    } else {
-      echo 
-      "<script>
-        alert('User Unsuccessful to Register!');
-        document.location.href = 'registerPage.php';
-      </script>";
-    }
+  // Call the register function to insert the user into the database
+  if (register($_POST) > 0) {
+    echo "<script>alert('User Successfully Registered!');
+          document.location.href = 'loginPage.php';</script>";
+  } else {
+    echo "<script>alert('User Unsuccessful to Register!');
+          document.location.href = 'registerPage.php';</script>";
   }
+}
 
 ?>
 
