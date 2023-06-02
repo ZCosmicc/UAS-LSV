@@ -8,24 +8,23 @@ if (isset($_SESSION["login"])) {
 }
 
 if (isset($_POST["submit"])) {
-  $name = $_POST["name"];
+  $name = $_POST["full_name"];
   $email = $_POST["email"];
   $password = $_POST["password"];
 
   // Check if the email already exists in the database
   if (emailExists($email)) {
-    echo "<script>alert('Email already exists. Please choose a different email.');
-          document.location.href = 'registerPage.php';</script>";
-    exit;
-  }
-
-  // Call the register function to insert the user into the database
-  if (register($_POST) > 0) {
-    echo "<script>alert('User Successfully Registered!');
-          document.location.href = 'loginPage.php';</script>";
+    $message = "Email already exists. Please choose another email.";
+    $type = "warning";
   } else {
-    echo "<script>alert('User Unsuccessful to Register!');
-          document.location.href = 'registerPage.php';</script>";
+    // Call the register function to insert the user into the database
+    if (register($_POST) > 0) {
+      $message = "User Successfully Registered!";
+      $type = "success";
+    } else {
+      $message = "User Unsuccessful to Register!";
+      $type = "danger";
+    }
   }
 }
 
@@ -60,23 +59,31 @@ if (isset($_POST["submit"])) {
 <div class="container-fluid h-100">
   <div class="row h-100">
     <div class="col-lg-4 d-lg-flex justify-content-center align-items-center bg-light">
-      <div class="login">
-        <div class="title">
-          <h3>Lets get you set up!</h3>
-          <p>Create your account</p>
-        </div>
+    <div class="login">
+      <div class="title">
+        <h3>Lets get you set up!</h3>
+        <p>Create your account</p>
+      </div>
+        <?php if (isset($message)) : ?>
+          <div class="alert alert-<?=$type; ?> alert-dismissible fade show" role="alert">
+            <strong><?= $message; ?></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif; ?>
         <form method="post">
           <div class="form-group">
             <input type="text" class="form-control" name="full_name" placeholder="Full Name" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Email" required>
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
           </div>
           <div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required>
           </div>
           <button type="submit" name="submit" class="btn btn-primary">Register</button>
-          <p class="mb-0">Already have an account? <a href="loginPage.php"> Login.</a></p>
+          <p class="mt-3">Already have an account? <a href="loginPage.php"><strong> Login.</strong></a></p>
         </form>
       </div>
     </div>

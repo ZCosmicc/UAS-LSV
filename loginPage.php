@@ -1,5 +1,5 @@
 <?php
-require ("model.php");
+require("model.php");
 session_start();
 
 if (isset($_SESSION["login"])) {
@@ -41,12 +41,13 @@ if (isset($_POST["submit"])) {
         exit;
       }
     } else {
-      echo "<script>alert('Email or Password Invalid!');</script>";
+      $message = "Email or password is wrong!";
     }
+  } else {
+    $message = "Email not registered!";
   }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +90,14 @@ if (isset($_POST["submit"])) {
           <h3>Hello There!</h3>
           <p>Welcome back, please login to you account</p>
         </div>
+        <?php if (isset($message)) : ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong><?= $message; ?></strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <?php endif; ?>
         <form method="post">
           <div class="form-group">
             <input type="text" class="form-control" name="email" placeholder="Email" required>
@@ -98,12 +107,12 @@ if (isset($_POST["submit"])) {
           </div>
           <div class="form-bottom">
             <div class="forgot-pass">
-              <a href="#"> Forgot password? </a>
+              <a href="forgot-password-01.html"> Forgot password? </a>
             </div>
           </div>
           <button type="submit" name="submit" class="btn btn-primary">Login</button>
         </form>
-        <span>Doesn't have account? Create <a href="registerPage.php"> Account.</a></span>
+        <span>Doesn't have account? Create <a href="registerPage.php"><strong> Account.</strong></a></span>
       </div>
     </div>
     <div class="col-lg-8 d-flex justify-content-center align-items-center">

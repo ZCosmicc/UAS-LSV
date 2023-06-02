@@ -1,19 +1,19 @@
 <?php
 session_start();
-require ("model.php");
+require("model.php");
 
-	if (isset($_SESSION["login"])) {
-	// Redirect based on user role
-	if ($_SESSION["role"] === "member") {
-	  header("Location: projectsPage.php");
-	  exit;
-	} 
-  }
+if (!isset($_SESSION["login"])) {
+  header("Location: loginPage.php");
+  exit;
+}
 
-  $userID = $_SESSION["user_id"];
-  $userData = getUserData("users", $userID);
-
+// Redirect based on user role
+if ($_SESSION["role"] === "member") {
+  header("Location: projectsPage.php");
+  exit;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,8 +127,8 @@ require ("model.php");
 									<div class="row">
 										<div class="col-8">
 											<div class="profile-name">
-												<h4><?php echo $userData["full_name"]; ?></h4>
-												<a href="#"><?php echo $userData["email"]; ?></a>
+												<h4><?php echo $_SESSION["full_name"]; ?></h4>
+												<a href="#"><?php echo $_SESSION["email"]; ?></a>
 											</div>
 										</div>
 										<div class="col-4">
@@ -660,14 +660,12 @@ require ("model.php");
 		<footer class="footer pb-3">
 			<div class="row text-center text-md-left">
 		    <div class="col-md-6">
-		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <a target="_blank" href="https://www.infinitysoftway.com/">infinitysoftway </a> All Rights Reserved</p>
+		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP </a></strong> All Rights Reserved</p>
 		    </div>
 		    <div class="col-md-6 text-md-right">
 		      <div class="footer-links">
 		        <ul class="list-unstyled list-inline mb-0">
-		          <li class="list-inline-item"><a class="text-dark" href="#">Privacy Policy </a></li>
-		          <li class="list-inline-item"><a class="text-dark" href="#">Terms of Use  </a></li>
-		          <li class="list-inline-item"><a class="text-dark" href="#">Contact us </a></li>
+					<li class="list-inline-item"><a class="text-dark" href="mailto:zencatzcosmic@gmail.com?subject=SIMP%20-%20ASK">Contact us</a></li>
 		        </ul>
 		      </div>
 		    </div>
