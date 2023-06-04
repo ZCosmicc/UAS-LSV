@@ -9,6 +9,7 @@ require ("model.php");
 
   $userID = $_SESSION["user_id"];
   $userData = getUserData("users", $userID);
+  $pjlists = getData("projects");
 
   
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,13 +31,14 @@ if (isset($_POST["submit"])){
     echo "
 		<script>
 		  alert('Project successfully added!');
-		  document.reload();
+      window.location.href = 'projectsPage.php';
 		</script>
 	  ";
 	} else {
 	  echo "
 		<script>
 		  alert('Project failed to added!');
+      window.location.href = 'projectsPage.php';
 		</script>
 	  ";
 	}
@@ -242,33 +244,34 @@ if (isset($_POST["submit"])){
     </div>
   </div>
   <div class="row">
+  <?php foreach ($pjlists as $pjlist) : ?>
     <div class="col-lg-4 col-sm-6">
       <div class="card">
         <div class="card-body">
           <div class="project-item">
             <div class="project-title mb-3">
               <div class="project-title-left">
-                <h5> <a href="#!"> Application development </a></h5>
+                <h5> <a href="#!"><?php echo $pjlist["project_name"]; ?></a></h5>
               </div>
               <div class="project-badge">
-                <span class="badge badge-overlay-success ml-2 float-right">Active</span>
+                <span class="badge badge-overlay-success ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
               </div>
             </div>
             <div class="project-comments mt-4">
               <h6 class="mb-2">Description : </h6>
-              <p>Officia nam sed possimus repellat et, assumenda corporis velit? Dicta et tenetur consequatur.</p>
+              <p><?php echo $pjlist["project_description"]; ?></p>
             </div>
             <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
-                  <p>10/01/2021</p>
+                  <p><?php echo $pjlist["created_date"]; ?></p>
                 </div>
               </div>
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">End date: </h6>
-                  <p>10/01/2021</p>
+                  <p><?php echo $pjlist["deadline_date"]; ?></p>
                 </div>
               </div>
             </div>
@@ -285,262 +288,49 @@ if (isset($_POST["submit"])){
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <div class="project-item">
-            <div class="project-title mb-3">
-              <div class="project-title-left">
-                <h5> <a href="#!"> Application Testing </a></h5>
-              </div>
-              <div class="project-badge">
-                <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
-              </div>
-            </div>
-            <div class="project-comments mt-4">
-              <h6 class="mb-2">Description : </h6>
-              <p>Assumenda corporis velit? Dicta et tenetur consequatur officia nam sed possimus repellat.</p>
-            </div>
-            <div class="row mt-5">
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">Start date: </h6>
-                  <p>12/06/2021</p>
-                </div>
-              </div>
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">End date: </h6>
-                  <p>10/06/2021</p>
-                </div>
-              </div>
-            </div>
-            <div class="project-status mt-5">
-              <div class="project-status-label ">
-                <span>Completed</span>
-                <span>80%</span>
-              </div>
-              <div class="progress progress-h-4">
-                <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
+    <?php endforeach; ?>
+    
+  </div>
+</div>
+  <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <div class="project-item">
-            <div class="project-title mb-3">
-              <div class="project-title-left">
-                <h5> <a href="#!"> UI design </a></h5>
-              </div>
-              <div class="project-badge">
-                <span class="badge badge-overlay-success ml-2 float-right">Finished</span>
-              </div>
-            </div>
-            <div class="project-comments mt-4">
-              <h6 class="mb-2">Description : </h6>
-              <p>Tepellat et, assumenda corporis velit? Dicta et tenetur consequatur officia nam sed possimus.</p>
-            </div>
-            <div class="row mt-5">
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">Start date: </h6>
-                  <p>12/03/2021</p>
-                </div>
-              </div>
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">End date: </h6>
-                  <p>30/03/2021</p>
-                </div>
-              </div>
-            </div>
-            <div class="project-status mt-5">
-              <div class="project-status-label ">
-                <span>Completed</span>
-                <span>45%</span>
-              </div>
-              <div class="progress progress-h-4">
-                <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <div class="project-item">
-            <div class="project-title mb-3">
-              <div class="project-title-left">
-                <h5> <a href="#!"> App design </a></h5>
-              </div>
-              <div class="project-badge">
-                <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
-              </div>
-            </div>
-            <div class="project-comments mt-4">
-              <h6 class="mb-2">Description : </h6>
-              <p>Dicta et tenetur consequatur. officia nam sed possimus repellat et, assumenda corporis velit?</p>
-            </div>
-            <div class="row mt-5">
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">Start date: </h6>
-                  <p>01/05/2021</p>
-                </div>
-              </div>
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">End date: </h6>
-                  <p>14/05/2021</p>
-                </div>
-              </div>
-            </div>
-            <div class="project-status mt-5">
-              <div class="project-status-label ">
-                <span>Completed</span>
-                <span>77%</span>
-              </div>
-              <div class="progress progress-h-4">
-                <div class="progress-bar" role="progressbar" style="width: 77%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <div class="project-item">
-            <div class="project-title mb-3">
-              <div class="project-title-left">
-                <h5> <a href="#!"> Application development </a></h5>
-              </div>
-              <div class="project-badge">
-                <span class="badge badge-overlay-success ml-2 float-right">Active</span>
-              </div>
-            </div>
-            <div class="project-comments mt-4">
-              <h6 class="mb-2">Description : </h6>
-              <p>Officia nam sed possimus repellat et, assumenda corporis velit? Dicta et tenetur consequatur.</p>
-            </div>
-            <div class="row mt-5">
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">Start date: </h6>
-                  <p>10/16/2021</p>
-                </div>
-              </div>
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">End date: </h6>
-                  <p>10/16/2021</p>
-                </div>
-              </div>
-            </div>
-            <div class="project-status mt-5">
-              <div class="project-status-label ">
-                <span>Completed</span>
-                <span>60%</span>
-              </div>
-              <div class="progress progress-h-4">
-                <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <div class="project-item">
-            <div class="project-title mb-3">
-              <div class="project-title-left">
-                <h5> <a href="#!"> Landing page design </a></h5>
-              </div>
-              <div class="project-badge">
-                <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
-              </div>
-            </div>
-            <div class="project-comments mt-4">
-              <h6 class="mb-2">Description : </h6>
-              <p>Velit officia nam sed possimus repellat et, assumenda corporis? Dicta et tenetur consequatur.</p>
-            </div>
-            <div class="row mt-5">
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">Start date: </h6>
-                  <p>05/10/2021</p>
-                </div>
-              </div>
-              <div class="col">
-                <div class="project-deadline">
-                  <h6 class="mb-2">End date: </h6>
-                  <p>16/10/2021</p>
-                </div>
-              </div>
-            </div>
-            <div class="project-status mt-5">
-              <div class="project-status-label ">
-                <span>Completed</span>
-                <span>60%</span>
-              </div>
-              <div class="progress progress-h-4">
-                <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-     </div>
-    </div>
-   </div>
-   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Project</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body p-5">
         <form method="post">
         <div class="form-group">
             <label for="project_name" hidden>Created by</label>
             <input type="text" class="form-control" name="created_by" value="<?= $_SESSION["user_id"] ?>" placeholder="Enter Project Name" hidden>
-          </div>
-          <div class="form-group">
-            <label for="project_name">Project Name</label>
-            <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" required>
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" name="project_description" placeholder="Enter Project Description" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="start_date">Start Date</label>
-            <input type="date" class="form-control" name="created_date" required>
-          </div>
-          <div class="form-group">
-            <label for="end_date">End Date</label>
-            <input type="date" class="form-control" name="deadline_date" required>
-          </div>
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control" name="status" required>
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
-          </div>
+        </div>
+        <div class="form-group">
+          <label for="project_name">Project Name</label>
+          <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" name="project_description" placeholder="Enter Project Description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="start_date">Start Date</label>
+          <input type="date" class="form-control" name="created_date" required>
+        </div>
+        <div class="form-group">
+          <label for="end_date">End Date</label>
+          <input type="date" class="form-control" name="deadline_date" required>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" name="status" required>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
           <button type="submit" name="submit" class="btn btn-primary">Add Project</button>
         </form>
       </div>
