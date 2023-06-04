@@ -178,6 +178,12 @@ require ("model.php");
 			<a href="calendar-list.php">
 			  <i class="la la-calendar"></i> <span>Calendar</span>
 			</a>
+		  </li>
+		  <li>
+			<a href="editProfile.php">
+			  <i class="la la-gear"></i> <span>Account Settings</span>
+			</a>
+		  </li>
 		</ul>
 	</div>
 

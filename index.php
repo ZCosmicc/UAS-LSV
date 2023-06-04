@@ -176,6 +176,11 @@ if ($_SESSION["role"] === "member") {
         		<i class="la la-calendar"></i> <span>Calendar</span>
         	</a>
       	</li>
+		<li>
+			<a href="editProfile.php">
+			  <i class="la la-gear"></i> <span>Account Settings</span>
+			</a>
+		</li>
     </ul>
   </div>
   <!-- **********  main-panel  ********** -->
@@ -194,73 +199,77 @@ if ($_SESSION["role"] === "member") {
 						</button>
 					</div>
 				</div>
-				<div class="col-lg-2">
-					<div class="add-new">
-						<a class="btn btn-primary" href="#!"> <i class="feather icon-plus"></i> Add new</a>
-					</div>
-				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-6 mt-4 mt-lg-5">
-					<div class="card">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Recent revenue</h4>
-							</div>
-						</div>
-						<div class="card-body">
-							<div id="revenue-chart">
-					    </div>
-						</div>
-					</div>
-				</div>
 				<div class="col-lg-3 mt-lg-5">
-					<div class="card">
+					<div class="card h-auto">
 						<div class="card-title">
 							<div class="card-title-left">
-								<h4 class="card-title-text">Top Sales</h4>
+								<h4 class="card-title-text">Recent Project</h4>
 							</div>
 						</div>
 						<div class="card-body">
-							<div id="sale-chart"></div>
-					    <div class="pt-4">
-									<div class="d-flex w-100"> 
-										<span class="text-light font-weight-normal"><i class="fa fa-circle pr-2 text-primary"></i> 44 not sent</span>
-										<span class="ml-auto text-light font-weight-normal"><i class="fa fa-circle pr-2 text-primary"></i> 44 opened</span>
+					     <div class="project-item">
+									<div class="project-title">
+										<div class="project-title-left">
+											<h5 class="mb-3"> <a href="#!"> Application development </a></h5>
+											<span class="badge badge-overlay-success">Active</span>
+										</div>
 									</div>
-									<div class="d-flex w-100 mt-4"> 
-										<span class="text-light font-weight-normal"><i class="fa fa-circle pr-2 text-primary"></i> 44 success</span>
-										<span class="ml-auto text-light font-weight-normal"><i class="fa fa-circle pr-2 text-primary"></i> 44 SMTP error</span>
-									</div> 
-									<a class="btn btn-light btn-block mt-4" href="#">View more</a>
-									<p class="text-center mt-5">The secret of getting ahead is getting started</p>
+									<div class="project-comments mt-1">
+										<p>Officia nam sed possimus repellat et, assumenda corporis velit.</p>
+									</div>
+									
+									<div class="project-status mt-2">
+										<div class="project-status-label ">
+											<span>Completed</span>
+											<span>60%</span>
+										</div>
+										<div class="progress progress-h-4">
+											<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
 								</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-3 mt-lg-5">
-					<div class="card mb-4 h-auto overflow-hidden">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Downloads</h4>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="d-flex align-items-end">
-								<div class="mr-3">
-									<h3>10M</h3>
-									<span>Views</span>
-									</div>
-
-							<div id="download-chart">
-							</div>
-						</div>
-					</div>
-					</div>
 					<div class="card h-auto">
 						<div class="card-title">
 							<div class="card-title-left">
-								<h4 class="card-title-text">Our Projects</h4>
+								<h4 class="card-title-text">Finished Project</h4>
+							</div>
+						</div>
+						<div class="card-body">
+					     <div class="project-item">
+									<div class="project-title">
+										<div class="project-title-left">
+											<h5 class="mb-3"> <a href="#!"> UI Design </a></h5>
+											<span class="badge badge-overlay-success">Finished</span>
+										</div>
+									</div>
+									<div class="project-comments mt-1">
+										<p>Officia nam sed possimus repellat et, assumenda corporis velit.</p>
+									</div>
+									
+									<div class="project-status mt-2">
+										<div class="project-status-label ">
+											<span>Completed</span>
+											<span>100%</span>
+										</div>
+										<div class="progress progress-h-4">
+											<div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 mt-lg-5">
+					<div class="card h-auto">
+						<div class="card-title">
+							<div class="card-title-left">
+								<h4 class="card-title-text">Pending Project</h4>
 							</div>
 						</div>
 						<div class="card-body">
@@ -278,27 +287,19 @@ if ($_SESSION["role"] === "member") {
 									<div class="project-status mt-2">
 										<div class="project-status-label ">
 											<span>Completed</span>
-											<span>60%</span>
+											<span>85%</span>
 										</div>
-										<div class="progress progress-h-5">
-											<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-									<div class="row mt-4">
-										<div class="col-12">
-											<div class="project-deadline">
-												<h6 class="mb-2 d-inline-block">End date: </h6>
-												<p class="d-inline-block">10/01/2021</p>
-											</div>
+										<div class="progress progress-h-4">
+											<div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</div>
 								</div>
 						</div>
 					</div>
-			</div>
+				</div> 
 			</div>
 			<div class="row">
-				<div class="col-lg-3">
+				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-title">
 							<div class="card-title-left">
@@ -395,7 +396,101 @@ if ($_SESSION["role"] === "member") {
 						</div>
 					</div>
 				</div>
-
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="card">
+						<div class="card-title">
+							<div class="card-title-left">
+								<h4 class="card-title-text">Manage Member</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-centered table-hover mb-0">
+									<thead>
+										<tr>
+											<th scope="col">User </th>
+											<th scope="col">Position</th>
+											<th scope="col">Address</th>
+											<th scope="col">Gender</th>
+											<th scope="col">Start date</th>
+											<th scope="col">Completed Task</th>
+											<th scope="col">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\01.jpg" width="40" height="40"  alt=""> </th>
+											<td>Accountant</td>
+											<td>802 Peninsula St. Madison, AL 35758</td>
+											<td>Male</td>
+											<td>2008/11/28</td>
+											<td>
+												<div class="progress progress-h-5">
+													<div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</td>
+											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
+										</tr>
+										<tr>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\02.jpg" width="40" height="40"  alt=""></th>
+											<td>Sales </td>
+											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
+											<td>Male</td>
+											<td>2001/08/12</td>
+											<td>
+												<div class="progress progress-h-5">
+													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</td>
+											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
+										</tr>
+										<tr>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\03.jpg" width="40" height="40"  alt=""></th>
+											<td>Developer</td>
+											<td>46 St Paul Ave. Dickson, TN 37055</td>
+											<td>Female</td>
+											<td>2010/12/30</td>
+											<td>
+												<div class="progress progress-h-5">
+													<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</td>
+											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
+										</tr>
+										<tr>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\04.jpg" width="40" height="40"  alt=""></th>
+											<td>Designer</td>
+											<td>197 Hawthorne Rd. Beckley, WV 25801</td>
+											<td>Male</td>
+											<td>2012/06/02</td>
+											<td>
+												<div class="progress progress-h-5">
+													<div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</td>
+											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
+										</tr>
+										<tr>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\05.jpg" width="40" height="40"  alt=""></th>
+											<td>Sales </td>
+											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
+											<td>Female</td>
+											<td>2001/08/12</td>
+											<td>
+												<div class="progress progress-h-5">
+													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</td>
+											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-title">
@@ -549,107 +644,6 @@ if ($_SESSION["role"] === "member") {
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="card">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Manage employ position</h4>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-centered table-hover mb-0">
-									<thead>
-										<tr>
-											<th scope="col">Employ </th>
-											<th scope="col">Position</th>
-											<th scope="col">Office</th>
-											<th scope="col">Age</th>
-											<th scope="col">Start date</th>
-											<th scope="col">Aparicinacy</th>
-											<th scope="col">Salary</th>
-											<th scope="col">Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\01.jpg" width="40" height="40"  alt=""> </th>
-											<td>Accountant</td>
-											<td>802 Peninsula St. Madison, AL 35758</td>
-											<td>33</td>
-											<td>2008/11/28</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td> $162,700 </td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\02.jpg" width="40" height="40"  alt=""></th>
-											<td>Sales </td>
-											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
-											<td>50</td>
-											<td>2001/08/12</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td> $5,56,700 </td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\03.jpg" width="40" height="40"  alt=""></th>
-											<td>Developer</td>
-											<td>46 St Paul Ave. Dickson, TN 37055</td>
-											<td>30</td>
-											<td>2010/12/30</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td> $56,700 </td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\04.jpg" width="40" height="40"  alt=""></th>
-											<td>Designer</td>
-											<td>197 Hawthorne Rd. Beckley, WV 25801</td>
-											<td>28</td>
-											<td>2012/06/02</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td> $13,465 </td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\05.jpg" width="40" height="40"  alt=""></th>
-											<td>Sales </td>
-											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
-											<td>50</td>
-											<td>2001/08/12</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td> $5,56,700 </td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
-										</tr>
-									</tbody>
-								</table>
 							</div>
 						</div>
 					</div>

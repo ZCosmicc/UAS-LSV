@@ -35,7 +35,7 @@ function register($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // Add new user
-    $query = "INSERT INTO users VALUES('', '$full_name', '$email', '$password', '','$date_created', 'member')";
+    $query = "INSERT INTO users VALUES('', '$full_name', '$email', '$password', '','$date_created', 'member', '', '', '', '', '')";
     $result = mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
@@ -75,6 +75,10 @@ function login($data)
             $_SESSION["login"] = true;
             $_SESSION["user_id"] = $row["user_id"];
             $_SESSION["full_name"] = $row["full_name"];
+            $_SESSION["position"] = $row["position"];
+            $_SESSION["phone_number"] = $row["phone_number"];
+            $_SESSION["address"] = $row["address"];
+            $_SESSION["about"] = $row["about"];
             $_SESSION["email"] = $row["email"];
             $_SESSION["password"] = $row["password"];
             $_SESSION["user_photo"] = $row["user_photo"];
@@ -135,4 +139,29 @@ function getUserData($table, $userID)
     return $row;
 }
 
+// Update the user profile in the database based on the submitted data
+function updateUserProfile() {
+    global $koneksi;
+
+    $userID = $_SESSION["user_id"];
+    $full_name = htmlspecialchars($_POST["full_name"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $phone_number = htmlspecialchars($_POST["phone_number"]);
+    $address = htmlspecialchars($_POST["address"]);
+    $about = htmlspecialchars($_POST["about"]);
+    $position = htmlspecialchars($_POST["position"]);
+    $gender = htmlspecialchars($_POST["gender"]);
+
+    $query = "UPDATE users SET 
+                full_name = '$full_name',
+                email = '$email',
+                phone_number = '$phone_number',
+                address = '$address',
+                about = '$about',
+                position = '$position',
+                gender = '$gender'
+                WHERE user_id = $userID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
+}
 ?>

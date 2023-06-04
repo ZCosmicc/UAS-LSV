@@ -183,6 +183,12 @@ require ("model.php");
         <a href="calendar-list.php">
           <i class="la la-calendar"></i> <span>Calendar</span>
         </a>
+      </li>
+      <li>
+			  <a href="editProfile.php">
+			    <i class="la la-gear"></i> <span>Account Settings</span>
+			  </a>
+		  </li>
     </ul>
   </div>
 </div>
@@ -211,28 +217,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> Application development </a></h5>
-                <span>Budget: $60,457</span>
               </div>
               <div class="project-badge">
-                <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
+                <span class="badge badge-overlay-success ml-2 float-right">Active</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
+              <h6 class="mb-2">Description : </h6>
               <p>Officia nam sed possimus repellat et, assumenda corporis velit? Dicta et tenetur consequatur.</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary">
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -246,33 +240,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>60%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cedric Kelly"> <img class="img-fluid" src="src\assets\images\team\03.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gavin Joyce">  <img class="img-fluid" src="src\assets\images\team\04.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="View all"><span class="avatar-name">15+</span> </a>
-                </div>
               </div>
             </div>
           </div>
@@ -286,28 +260,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> Application Testing </a></h5>
-                <span>Budget: $12,467</span>
               </div>
               <div class="project-badge">
-                <span class="badge badge-overlay-success ml-2 float-right">Active</span>
+                <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
-              <p>Assumenda corporis velit? Dicta et tenetur consequatur officia nam sed possimus repellat et.</p>
+              <h6 class="mb-2">Description : </h6>
+              <p>Assumenda corporis velit? Dicta et tenetur consequatur officia nam sed possimus repellat.</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary" checked>
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -321,27 +283,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>80%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="View all"><span class="avatar-name">02+</span> </a>
-                </div>
               </div>
             </div>
           </div>
@@ -355,28 +303,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> UI design </a></h5>
-                <span>Budget: $2,456</span>
               </div>
               <div class="project-badge">
-                <span class="badge badge-overlay-success ml-2 float-right">Active</span>
+                <span class="badge badge-overlay-success ml-2 float-right">Finished</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
+              <h6 class="mb-2">Description : </h6>
               <p>Tepellat et, assumenda corporis velit? Dicta et tenetur consequatur officia nam sed possimus.</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary" checked>
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -390,27 +326,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>45%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cedric Kelly"> <img class="img-fluid" src="src\assets\images\team\03.jpg" alt=""></a>
-                </div>
               </div>
             </div>
           </div>
@@ -424,28 +346,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> App design </a></h5>
-                <span>Budget: $1,452</span>
               </div>
               <div class="project-badge">
                 <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
+              <h6 class="mb-2">Description : </h6>
               <p>Dicta et tenetur consequatur. officia nam sed possimus repellat et, assumenda corporis velit?</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary">
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -459,30 +369,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>77%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 77%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gavin Joyce">  <img class="img-fluid" src="src\assets\images\team\04.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="View all"><span class="avatar-name">06+</span> </a>
-                </div>
               </div>
             </div>
           </div>
@@ -496,28 +389,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> Application development </a></h5>
-                <span>Budget: $20,566</span>
               </div>
               <div class="project-badge">
                 <span class="badge badge-overlay-success ml-2 float-right">Active</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
+              <h6 class="mb-2">Description : </h6>
               <p>Officia nam sed possimus repellat et, assumenda corporis velit? Dicta et tenetur consequatur.</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary" checked>
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -531,33 +412,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>60%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cedric Kelly"> <img class="img-fluid" src="src\assets\images\team\03.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gavin Joyce">  <img class="img-fluid" src="src\assets\images\team\04.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="View all"><span class="avatar-name">01+</span> </a>
-                </div>
               </div>
             </div>
           </div>
@@ -571,28 +432,16 @@ require ("model.php");
             <div class="project-title mb-3">
               <div class="project-title-left">
                 <h5> <a href="#!"> Landing page design </a></h5>
-                <span>Budget: $12,496</span>
               </div>
               <div class="project-badge">
                 <span class="badge badge-overlay-danger ml-2 float-right">Pending</span>
               </div>
             </div>
             <div class="project-comments mt-4">
-              <h6 class="mb-2">Comments : </h6>
+              <h6 class="mb-2">Description : </h6>
               <p>Velit officia nam sed possimus repellat et, assumenda corporis? Dicta et tenetur consequatur.</p>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <div class="project-tracker">
-                  <h6 class="mb-2">Tracker: </h6>
-                  <div class="switcher">
-                    <label class="switch ">
-                      <input type="checkbox" class="primary">
-                      <span class="slider round name"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="project-deadline">
                   <h6 class="mb-2">Start date: </h6>
@@ -606,37 +455,13 @@ require ("model.php");
                 </div>
               </div>
             </div>
-            <div class="project-status mt-3">
+            <div class="project-status mt-5">
               <div class="project-status-label ">
                 <span>Completed</span>
                 <span>60%</span>
               </div>
-              <div class="progress progress-h-5">
+              <div class="progress progress-h-4">
                 <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="project-team mt-4">
-              <h6 class="mb-2">Team: </h6>
-              <div class="avatar-group">
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Airi Satou">  <img class="img-fluid" src="src\assets\images\team\01.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bruno Nash"> <img class="img-fluid" src="src\assets\images\team\02.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cedric Kelly"> <img class="img-fluid" src="src\assets\images\team\03.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gavin Joyce">  <img class="img-fluid" src="src\assets\images\team\04.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gavin Joyce">  <img class="img-fluid" src="src\assets\images\team\05.jpg" alt=""></a>
-                </div>
-                <div class="avatar avatar-sm">
-                  <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="View all"><span class="avatar-name">10+</span> </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

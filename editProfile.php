@@ -10,6 +10,23 @@ require ("model.php");
   $userID = $_SESSION["user_id"];
   $userData = getUserData("users", $userID);
 
+  if(isset($_POST["submit"])) {
+	if(updateUserProfile($_POST) > 0) {
+	  echo "
+		<script>
+		  alert('Profile successfully edited!');
+		  document.location.href = 'profile.php';
+		</script>
+	  ";
+	} else {
+	  echo "
+		<script>
+		  alert('Profile failed to edit!');
+		</script>
+	  ";
+	}
+  }
+
 
 ?>
 
@@ -24,7 +41,7 @@ require ("model.php");
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
  
 <!-- TITLE -->
-<title>SIMP - My Profile</title>
+<title>SIMP - Edit Profile</title>
 
 <!-- FAVICON -->
 <link rel="shortcut icon" href="src\assets\images\favicon.ico" />
@@ -138,7 +155,7 @@ require ("model.php");
 									</div>
 								</div>
 								<div class="profile-info">
-									<a class="dropdown-item" href="#"> <i class="la la-edit"></i>  My Profile </a>
+									<a class="dropdown-item" href="profile.php"> <i class="la la-edit"></i>  My Profile </a>
 									<a class="dropdown-item" href="#"> <i class="la la-refresh"></i> Notifications <span class="badge badge-danger float-right">03</span></a>
 									<div class="separator my-2"></div>
 									<a class="btn btn-outline-primary outline-gray btn-sm mt-3" href="logout.php"> <i class="la la-power-off"></i> Logout </a>
@@ -192,7 +209,7 @@ require ("model.php");
 		<div class="panel-hedding">
 			<div class="row mb-4">
 				<div class="col-md-6">
-					<h1>My Profile</h1>
+					<h1>Edit Profile</h1>
 				</div>
 			</div>
 		</div>
@@ -202,32 +219,41 @@ require ("model.php");
 					<div class="avatar avatar-xll d-block mx-auto">
 						<img class="img-fluid" src="src\assets\images\team\04.jpg" alt="">
 					</div>
+					<form method="post">
 					<div class="user-name mt-3 text-center">
-						<h5><?php echo $userData["full_name"]; ?></h5>
-						<span><strong class="text-primary"><?php echo $userData["role"]; ?></strong></span>
+						<h5 class="mb-4">User information</h5>
+						<input type="text" class="form-control mb-3" name="full_name" value="<?php echo $userData["full_name"]; ?>" required>
+						<span><strong class="text-primary mt-3"><?php echo $userData["role"]; ?></strong></span>
 					</div>
 					<div class="user-info mt-4">
-						<h5>User Information</h5>
-						<div class="my-3 ">
-							<h6>Position:</h6>
-							<span><?php echo $userData["position"]; ?></span>
-						</div>
-						<div class="my-3 ">
-							<h6>Email:</h6>
-							<span><?php echo $userData["email"]; ?></span>
-						</div>
-						<div class="my-3 ">
-							<h6>Phone:</h6>
-							<span><?php echo $userData["phone_number"]; ?></span>
-						</div>
-						<div class="my-3 ">
-							<h6>Address:</h6>
-							<span><?php echo $userData["address"]; ?></span>
-						</div>
-						<div class="my-3 ">
-							<h6>Gender:</h6>
-							<span><?php echo $userData["gender"]; ?></span>
-						</div>
+
+							<div class="my-3 "><h6>Position:</h6></div>
+							<div class="form-group">
+								<input type="text" class="form-control" name="position" value="<?php echo $userData['position']; ?>" required>
+							</div>
+							<div class="my-3 "><h6>Email:</h6></div>
+							<div class="form-group">
+								<input type="text" class="form-control" name="email" value="<?php echo $userData['email']; ?>" required>
+							</div>
+							<div class="my-3 "><h6>Phone Number:</h6></div>
+							<div class="form-group">
+								<input type="text" class="form-control" name="phone_number" value="<?php echo $userData['phone_number']; ?>" required>
+							</div>
+							<div class="my-3 "><h6>Address:</h6></div>
+							<div class="form-group">
+								<input type="text" class="form-control" name="address" value="<?php echo $userData['address']; ?>" required>
+							</div>
+							<div class="my-3 "><h6>Gender:</h6></div>
+							<div class="custom-control custom-radio custom-control-inline">
+				  				<input type="radio" id="male" name="gender" value="male" class="custom-control-input" <?php echo $userData['gender'] == 'male' ? 'checked' : '' ?>>
+				  				<label class="custom-control-label" for="male">Male</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+				  				<input type="radio" id="female" name="gender" value="female" class="custom-control-input" <?php echo $userData['gender'] == 'female' ? 'checked' : '' ?>>
+				  				<label class="custom-control-label" for="female">Female</label>
+							</div>
+          					<button type="submit" name="submit" class="btn btn-primary mt-3">Save Changes</button>
+
 					</div>
 				</div>
 			</div>
@@ -235,10 +261,11 @@ require ("model.php");
 				<div class="user-about border-radius shadow-sm">
 					<div class="mb-4">
 						<h5 class="mb-3">About</h5>
-						<p><?php echo $userData["about"]; ?></p>
+						<textarea type="text" class="form-control" name="about" required><?php echo $userData['about']; ?></textarea>
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 	 </div>
 	</div>
