@@ -118,7 +118,7 @@ require ("model.php");
 						<li class="dropdown show user-profile">
 							<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<div class="avatar avatar-sm mr-1">
-										<img class="img-fluid" src="src\assets\images\team\01.jpg" alt="">
+										<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 									</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
@@ -132,7 +132,7 @@ require ("model.php");
 										</div>
 										<div class="col-4">
 											<div class="avatar mr-1">
-												<img class="img-fluid" src="src\assets\images\team\03.jpg" alt="">
+												<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 											</div>
 										</div>
 									</div>
@@ -200,7 +200,7 @@ require ("model.php");
 			<div class="col-lg-4 mb-4 mb-lg-0">
 				<div class="user-detail border-radius shadow-sm">
 					<div class="avatar avatar-xll d-block mx-auto">
-						<img class="img-fluid" src="src\assets\images\team\04.jpg" alt="">
+						<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 					</div>
 					<div class="user-name mt-3 text-center">
 						<h5><?php echo $userData["full_name"]; ?></h5>
@@ -209,23 +209,23 @@ require ("model.php");
 					<div class="user-info mt-4">
 						<h5>User Information</h5>
 						<div class="my-3 ">
-							<h6>Position:</h6>
+							<h6><i class="la la-briefcase mt-2"></i> Position</h6>
 							<span><?php echo $userData["position"]; ?></span>
 						</div>
 						<div class="my-3 ">
-							<h6>Email:</h6>
+							<h6><i class="la la-envelope"></i> Email</h6>
 							<span><?php echo $userData["email"]; ?></span>
 						</div>
 						<div class="my-3 ">
-							<h6>Phone:</h6>
+							<h6><i class="la la-phone"></i> Phone</h6>
 							<span><?php echo $userData["phone_number"]; ?></span>
 						</div>
 						<div class="my-3 ">
-							<h6>Address:</h6>
+							<h6><i class="la la-home"></i> Address</h6>
 							<span><?php echo $userData["address"]; ?></span>
 						</div>
 						<div class="my-3 ">
-							<h6>Gender:</h6>
+							<h6><i class="la la-user"></i> Gender</h6>
 							<span><?php echo $userData["gender"]; ?></span>
 						</div>
 					</div>

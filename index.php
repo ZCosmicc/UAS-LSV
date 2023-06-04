@@ -2,16 +2,19 @@
 session_start();
 require("model.php");
 
-if (!isset($_SESSION["login"])) {
-  header("Location: loginPage.php");
-  exit;
-}
+	if (!isset($_SESSION["login"])) {
+	header("Location: loginPage.php");
+	exit;
+	}
 
-// Redirect based on user role
-if ($_SESSION["role"] === "member") {
-  header("Location: projectsPage.php");
-  exit;
-}
+	// Redirect based on user role
+	if ($_SESSION["role"] === "member") {
+	header("Location: projectsPage.php");
+	exit;
+	}
+
+	$userID = $_SESSION["user_id"];
+	$userData = getUserData("users", $userID);
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +122,7 @@ if ($_SESSION["role"] === "member") {
 						<li class="dropdown show user-profile">
 							<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<div class="avatar avatar-sm mr-1">
-										<img class="img-fluid" src="src\assets\images\team\01.jpg" alt="">
+										<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 									</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
@@ -133,7 +136,7 @@ if ($_SESSION["role"] === "member") {
 										</div>
 										<div class="col-4">
 											<div class="avatar mr-1">
-												<img class="img-fluid" src="src\assets\images\team\03.jpg" alt="">
+												<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 											</div>
 										</div>
 									</div>

@@ -135,7 +135,7 @@ require ("model.php");
 						<li class="dropdown show user-profile">
 							<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<div class="avatar avatar-sm mr-1">
-										<img class="img-fluid" src="src\assets\images\team\01.jpg" alt="">
+										<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 									</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
@@ -149,7 +149,7 @@ require ("model.php");
 										</div>
 										<div class="col-4">
 											<div class="avatar mr-1">
-												<img class="img-fluid" src="src\assets\images\team\03.jpg" alt="">
+												<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 											</div>
 										</div>
 									</div>
@@ -215,11 +215,11 @@ require ("model.php");
 		</div>
 		<div class="row user-profile mb-4">
 			<div class="col-lg-4 mb-4 mb-lg-0">
-				<div class="user-detail border-radius shadow-sm">
+				<div class="card user-detail border-radius shadow-sm">
 					<div class="avatar avatar-xll d-block mx-auto">
-						<img class="img-fluid" src="src\assets\images\team\04.jpg" alt="">
+						<img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
 					</div>
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
 					<div class="user-name mt-3 text-center">
 						<h5 class="mb-4">User information</h5>
 						<input type="text" class="form-control mb-3" name="full_name" value="<?php echo $userData["full_name"]; ?>" required>
@@ -252,18 +252,30 @@ require ("model.php");
 				  				<input type="radio" id="female" name="gender" value="female" class="custom-control-input" <?php echo $userData['gender'] == 'female' ? 'checked' : '' ?>>
 				  				<label class="custom-control-label" for="female">Female</label>
 							</div>
-          					<button type="submit" name="submit" class="btn btn-primary mt-3">Save Changes</button>
-
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<div class="user-about border-radius shadow-sm">
+				<div class="card user-about border-radius shadow-sm mb-5">
 					<div class="mb-4">
 						<h5 class="mb-3">About</h5>
 						<textarea type="text" class="form-control" name="about" required><?php echo $userData['about']; ?></textarea>
 					</div>
 				</div>
+				<div class="card">
+					<div class="card-title">
+						<div class="card-title-left">
+							<h4 class="card-title-text">Upload Image</h4>
+						</div>
+					</div>
+				 	<div class="card-body">
+					  <div class="custom-file">
+						  <input type="file" class="custom-file-input" id="user_photo" name="user_photo" accept="image/*">
+						  <label class="custom-file-label" for="user_photo">Choose file</label>
+						</div>
+					</div>
+				</div>
+				<button type="submit" name="submit" class="btn btn-primary mt-4">Save Changes</button>
 			</div>
 			</form>
 		</div>

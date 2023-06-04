@@ -30,6 +30,11 @@ if (isset($_POST["submit"])) {
       $_SESSION["email"] = $row["email"];
       $_SESSION["password"] = $row["password"];
       $_SESSION["user_photo"] = $row["user_photo"];
+      $_SESSION["about"] = $row["about"];
+      $_SESSION["address"] = $row["address"];
+      $_SESSION["phone_number"] = $row["phone_number"];
+      $_SESSION["position"] = $row["position"];
+      $_SESSION["gender"] = $row["gender"];
       $_SESSION["role"] = $row["role"];
 
       // Redirect based on user role

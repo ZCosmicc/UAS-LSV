@@ -10,6 +10,38 @@ require ("model.php");
   $userID = $_SESSION["user_id"];
   $userData = getUserData("users", $userID);
 
+  
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Check if the form was submitted
+  $projectData = array(
+    "project_name" => $_POST["project_name"],
+    "project_description" => $_POST["project_description"],
+    "created_date" => $_POST["created_date"],
+    "deadline_date" => $_POST["deadline_date"],
+    "created_by" => $_POST["created_by"],
+    "status" => $_POST["status"]
+  );
+
+  // Call the addProject function
+ 
+
+if (isset($_POST["submit"])){
+  if(addProject($_POST) > 0) {
+    echo "
+		<script>
+		  alert('Project successfully added!');
+		  document.reload();
+		</script>
+	  ";
+	} else {
+	  echo "
+		<script>
+		  alert('Project failed to added!');
+		</script>
+	  ";
+	}
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +155,7 @@ require ("model.php");
             <li class="dropdown show user-profile">
               <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="avatar avatar-sm mr-1">
-                    <img class="img-fluid" src="src\assets\images\team\01.jpg" alt="">
+                    <img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
                   </div>              </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="profile-pic">
@@ -136,7 +168,7 @@ require ("model.php");
                     </div>
                     <div class="col-4">
                       <div class="avatar mr-1">
-                        <img class="img-fluid" src="src\assets\images\team\03.jpg" alt="">
+                        <img class="img-fluid" src="src\assets\images\team\<?php echo $userData["user_photo"] ?>" alt="">
                       </div>
                     </div>
                   </div>
@@ -204,7 +236,7 @@ require ("model.php");
       </div>
       <div class="col-md-6">
         <div class="add-new">
-          <a class="btn btn-primary" href="#!"> <i class="feather icon-plus"></i> Add new</a>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-03" fdprocessedid="lmb1tq"> <i class="feather icon-plus"></i> Add new</a>
         </div>
       </div>
     </div>
@@ -470,6 +502,52 @@ require ("model.php");
      </div>
     </div>
    </div>
+   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-5">
+        <form method="post">
+        <div class="form-group">
+            <label for="project_name" hidden>Created by</label>
+            <input type="text" class="form-control" name="created_by" value="<?= $_SESSION["user_id"] ?>" placeholder="Enter Project Name" hidden>
+          </div>
+          <div class="form-group">
+            <label for="project_name">Project Name</label>
+            <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="project_description" placeholder="Enter Project Description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="start_date">Start Date</label>
+            <input type="date" class="form-control" name="created_date" required>
+          </div>
+          <div class="form-group">
+            <label for="end_date">End Date</label>
+            <input type="date" class="form-control" name="deadline_date" required>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" name="status" required>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <button type="submit" name="submit" class="btn btn-primary">Add Project</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 <!-- **********  Wrapper  ********** -->
 
 

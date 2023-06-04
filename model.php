@@ -149,8 +149,15 @@ function updateUserProfile() {
     $phone_number = htmlspecialchars($_POST["phone_number"]);
     $address = htmlspecialchars($_POST["address"]);
     $about = htmlspecialchars($_POST["about"]);
+    $user_photo = isset($_FILES["user_photo"]["name"]) ? $_FILES["user_photo"]["name"] : "";
     $position = htmlspecialchars($_POST["position"]);
     $gender = htmlspecialchars($_POST["gender"]);
+
+    if (!empty($user_photo)) {
+        $target_dir = "src/assets/images/team/"; // Directory where you want to store the uploaded photos
+        $target_file = $target_dir . basename($_FILES["user_photo"]["name"]);
+        move_uploaded_file($_FILES["user_photo"]["tmp_name"], $target_file);
+    }
 
     $query = "UPDATE users SET 
                 full_name = '$full_name',
@@ -158,10 +165,41 @@ function updateUserProfile() {
                 phone_number = '$phone_number',
                 address = '$address',
                 about = '$about',
+                user_photo = '$user_photo',
                 position = '$position',
                 gender = '$gender'
                 WHERE user_id = $userID";
     mysqli_query($koneksi, $query);
     return mysqli_affected_rows($koneksi);
 }
+
+function addProject($projectData) {
+    global $koneksi;
+    
+    // Escape the values to prevent SQL injection
+    $created_by = $_SESSION["user_id"];
+    $projectName = mysqli_real_escape_string($koneksi, $projectData['project_name']);
+    $description = mysqli_real_escape_string($koneksi, $projectData['project_description']);
+    $createdDate = mysqli_real_escape_string($koneksi, $projectData['created_date']);
+    $deadlineDate = mysqli_real_escape_string($koneksi, $projectData['deadline_date']);
+    $status = mysqli_real_escape_string($koneksi, $projectData['status']);
+    
+    // Prepare the SQL query
+    $sql = "INSERT INTO projects (project_name, project_description, created_date, deadline_date, created_by,  status) 
+            VALUES ('$projectName', '$description', '$createdDate', '$deadlineDate', $created_by,  '$status')";
+    
+    // Execute the query
+    if (mysqli_query($koneksi, $sql)) {
+      // Project added successfully
+      return mysqli_insert_id($koneksi); // Return the ID of the newly inserted project
+    } else {
+      // Failed to add project
+      echo "Error: " . $sql . "<br>" . mysqli_error($koneksi);
+      return 0; // Return 0 to indicate failure
+    }
+    
+    // Close the database connection
+    mysqli_close($koneksi);
+  }
+  
 ?>
