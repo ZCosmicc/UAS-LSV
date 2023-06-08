@@ -7,43 +7,83 @@ require ("model.php");
     exit;
   }
 
+  $projectID = !empty($_GET['project_id']) ? $_GET['project_id'] : '';
+  $taskID = !empty($_GET['task_id']) ? $_GET['task_id'] : '';
   $userID = $_SESSION["user_id"];
   $userData = getUserData("users", $userID);
+  $uDatas = getData("users");
   $pjlists = getData("projects");
+  $tasklists = getData("tasks");
 
-  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if the form was submitted
-  $projectData = array(
-    "project_name" => $_POST["project_name"],
-    "project_description" => $_POST["project_description"],
-    "created_date" => $_POST["created_date"],
-    "deadline_date" => $_POST["deadline_date"],
-    "created_by" => $_POST["created_by"],
+  $taskData = array(
+    "task_id" => $_POST["task_id"],
+    "task_name" => $_POST["task_name"],
+    "task_description" => $_POST["task_description"],
+    "due_date" => $_POST["due_date"],
+    "responsible_user" => $_POST["responsible_user"],
+    "project_id" => $_POST["project_id"],
     "status" => $_POST["status"]
   );
 
-  // Call the addProject function
- 
-
+// Call the addTask function
 if (isset($_POST["submit"])){
-  if(addProject($_POST) > 0) {
+  if(addTask($_POST) > 0) {
     echo "
 		<script>
-		  alert('Project successfully added!');
-      window.location.href = 'projectsPage.php';
+		  alert('Task successfully added!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
 		</script>
 	  ";
 	} else {
 	  echo "
 		<script>
-		  alert('Project failed to added!');
-      window.location.href = 'projectsPage.php';
+		  alert('Task failed to added!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
 		</script>
 	  ";
 	}
   }
 }
+
+// Call the updateTask function
+if (isset($_POST["edit"])) {
+  if(updateTask($_POST) > 0) {
+    echo "
+    <script>
+      alert('Task successfully updated!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
+    </script>
+    ";
+  } else {
+    echo "
+    <script>
+      alert('Task failed to update!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
+    </script>
+    ";
+  }
+}
+
+// Call the deleteTask function
+if (isset($_GET["task_id"])) {
+  $taskID = $_GET["task_id"];
+  $projectID = !empty($_GET['project_id']) ? $_GET['project_id'] : '';
+  if (deleteTask($taskID) > 0) {
+    echo "<script>  
+      alert('Task successfully deleted!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
+      </script>";
+  } else {
+    echo "<script>  
+      alert('Task failed to delete!');
+      window.location.href = 'toDoTaskPage.php?project_id=$projectID';
+      </script>";
+  }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +97,7 @@ if (isset($_POST["submit"])){
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
  
 <!-- TITLE -->
-<title>SIMP - Projects</title>
+<title>SIMP - Tasks Page</title>
 
 <!-- FAVICON -->
 <link rel="shortcut icon" href="src\assets\images\favicon.ico" />
@@ -229,12 +269,14 @@ if (isset($_POST["submit"])){
 
 
 <!-- **********  main-panel  ********** -->
+<?php if (!empty($projectID)) : ?>
+  <?php $project = getData("projects WHERE project_id = $projectID")[0]; ?>
 <div class="main-panel">
   <div class="panel-hedding">
     <div class="row mb-4">
       <div class="col-md-6">
-        <h1>Your Projects</h1>
-        <p>Let's get to work</p>
+        <h1><?php echo $project["project_name"]; ?></h1>
+        <p>Selected Project</p>
       </div>
       <div class="col-md-6">
         <?php if ($_SESSION["role"] === "admin"): ?>
@@ -249,49 +291,46 @@ if (isset($_POST["submit"])){
     </div>
   </div>
   <div class="row">
-    <?php foreach ($pjlists as $pjlist) : ?>
-      <div class="col-lg-4 col-sm-6">
-        <div class="card custom-card">
-          <div class="card-body custom-card-body">
-            <div class="project-item">
-              <div class="project-title mb-3">
-                <div class="project-title-left">
-                  <h5> <a href="toDoTaskPage.php?project_id=<?php echo $pjlist["project_id"]?>"><?php echo $pjlist["project_name"]; ?></a></h5>
-                </div>
-                <div class="project-badge">
-                  <span class="badge badge-overlay-success ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
-                </div>
-              </div>
-              <div class="project-comments mt-4">
-                <h6 class="mb-2">Description : </h6>
-                <p><?php echo $pjlist["project_description"]; ?></p>
-              </div>
-              <div class="row mt-5">
-                <div class="col">
-                  <div class="project-deadline">
-                    <h6 class="mb-2">Start date: </h6>
-                    <p><?php echo $pjlist["created_date"]; ?></p>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="project-deadline">
-                    <h6 class="mb-2">End date: </h6>
-                    <p><?php echo $pjlist["deadline_date"]; ?></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-title">
+							<div class="card-title-left">
+								<h4 class="card-title-text">To do task</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="todo-task">
+								<ul class="list-group">
+                  <?php foreach ($tasklists as $tasklist) : ?>
+                    <?php if($tasklist["project_id"] == $projectID) : ?>
+									<li class="list-group-item">
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="<?php echo $tasklist["task_id"];?>">
+											<label class="custom-control-label" for="<?php echo $tasklist["task_id"];?>"><?php echo $tasklist["task_name"];?></label>
+											<p class="task-status"><?php echo $tasklist["task_description"];?></p>
+										</div>
+										<div class="task-action">
+											<ul class="list-unstyled">
+                      <li><a href="#editTaskModal" data-toggle="modal" data-task-id="<?php echo $tasklist["task_id"]; ?>" class="edit-task-button"><i class="la la-edit"></i></a></li>
+												<li><a href="?task_id=<?php echo $tasklist["task_id"];?>&project_id=<?php echo $projectID; ?>"><i class="la la-trash-o"></i></a></li>
+											</ul>
+										</div>
+									</li>
+                  <?php endif; ?>
+									<?php endforeach; ?>
+								</ul>
+							</div>
+						</div>
+					</div>
+			</div>
+	</div>
 </div>
+<?php endif; ?>
   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add New Project</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -299,24 +338,30 @@ if (isset($_POST["submit"])){
       <div class="modal-body p-5">
         <form method="post">
         <div class="form-group">
-            <label for="project_name" hidden>Created by</label>
-            <input type="text" class="form-control" name="created_by" value="<?= $_SESSION["user_id"] ?>" placeholder="Enter Project Name" hidden>
+            <label for="project_id" hidden>Created by</label>
+            <input type="text" class="form-control" name="project_id" value="<?= $_GET["project_id"] ?>" placeholder="Enter Project Name" hidden>
         </div>
         <div class="form-group">
-          <label for="project_name">Project Name</label>
-          <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" required>
+          <label for="task_name">Task Title</label>
+          <input type="text" class="form-control" name="task_name" placeholder="Enter Task Title" required>
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea class="form-control" name="project_description" placeholder="Enter Project Description" required></textarea>
+          <textarea class="form-control" name="task_description" placeholder="Enter Short Description" required></textarea>
         </div>
         <div class="form-group">
-          <label for="start_date">Start Date</label>
-          <input type="date" class="form-control" name="created_date" required>
+          <label for="due_date">Due Date</label>
+          <input type="date" class="form-control" name="due_date" required>
         </div>
         <div class="form-group">
-          <label for="end_date">End Date</label>
-          <input type="date" class="form-control" name="deadline_date" required>
+          <label for="responsible_user">Responsible User</label>
+          <select class="form-control" name="responsible_user" required>
+            // add user responsible from my user database
+            <?php foreach ($uDatas as $user) : ?>
+              //get user from table users
+              <option value="<?= $user["user_id"] ?>"><?= $user["full_name"] ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
         <div class="form-group">
           <label for="status">Status</label>
@@ -326,12 +371,64 @@ if (isset($_POST["submit"])){
             <option value="Completed">Completed</option>
           </select>
         </div>
-          <button type="submit" name="submit" class="btn btn-primary">Add Project</button>
+          <button type="submit" name="submit" class="btn btn-primary">Add Task</button>
         </form>
+      </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body p-5">
+        <form method="post">
+        <div class="form-group">
+            <label for="project_id" hidden>Created by</label>
+            <input type="text" class="form-control" name="task_id" value="<?= $tasklist["task_id"] ?>" placeholder="Enter Project Name" hidden>
+        </div>
+        <div class="form-group">
+          <label for="task_name">Task Title</label>
+          <input type="text" class="form-control" name="task_name" placeholder="Enter Task Title" value="<?php echo $tasklist["task_name"]?>" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" name="task_description" placeholder="Enter Short Description" required><?php echo $tasklist["task_description"]?></textarea>
+        </div>
+        <div class="form-group">
+          <label for="due_date">Due Date</label>
+          <input type="date" class="form-control" name="due_date" value="<?php echo $tasklist["due_date"]?>" required>
+        </div>
+        <div class="form-group">
+          <label for="responsible_user">Responsible User</label>
+          <select class="form-control" name="responsible_user" required>
+          <option selected="" disabled>Select new responsible user</option>
+            <?php foreach ($uDatas as $user) : ?>
+              <option value="<?= $user["user_id"] ?>"><?= $user["full_name"] ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" name="status" required>
+            <option selected="" disabled>Select new status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+          <button type="submit" name="edit" class="btn btn-primary">Update Task</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+
  
 <!-- **********  Wrapper  ********** -->
 
@@ -349,7 +446,7 @@ if (isset($_POST["submit"])){
 
 <!-- custom -->
 <script src="src\js\custom.js"></script>
-	
+
 </body>
 
 </html>

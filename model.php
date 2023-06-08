@@ -200,6 +200,66 @@ function addProject($projectData) {
     
     // Close the database connection
     mysqli_close($koneksi);
-  }
-  
+}
+
+function addTask($taskData) {
+    global $koneksi;
+    
+    // Escape the values to prevent SQL injection
+    $taskName = mysqli_real_escape_string($koneksi, $taskData['task_name']);
+    $taskDescription = mysqli_real_escape_string($koneksi, $taskData['task_description']);
+    $dueDate = mysqli_real_escape_string($koneksi, $taskData['due_date']);
+    $responsibleUser = mysqli_real_escape_string($koneksi, $taskData['responsible_user']);
+    $projectID = mysqli_real_escape_string($koneksi, $taskData['project_id']);
+    $status = mysqli_real_escape_string($koneksi, $taskData['status']);
+    
+    // Prepare the SQL query
+    $sql = "INSERT INTO tasks (task_name, task_description, due_date, responsible_user,  status, project_id) 
+            VALUES ('$taskName', '$taskDescription', '$dueDate', $responsibleUser,  '$status', '$projectID')";
+    
+    // Execute the query
+    if (mysqli_query($koneksi, $sql)) {
+      // Task added successfully
+      return mysqli_insert_id($koneksi); // Return the ID of the newly inserted task
+    } else {
+      // Failed to add task
+      echo "Error: " . $sql . "<br>" . mysqli_error($koneksi);
+      return 0; // Return 0 to indicate failure
+    }
+    
+    // Close the database connection
+    mysqli_close($koneksi);
+}
+
+// Update the task in the database based on the submitted data
+function updateTask($taskData) {
+    global $koneksi;
+
+    $taskID = mysqli_real_escape_string($koneksi, $taskData['task_id']);
+    $taskName = mysqli_real_escape_string($koneksi, $taskData['task_name']);
+    $taskDescription = mysqli_real_escape_string($koneksi, $taskData['task_description']);
+    $dueDate = mysqli_real_escape_string($koneksi, $taskData['due_date']);
+    $responsibleUser = mysqli_real_escape_string($koneksi, $taskData['responsible_user']);
+    $status = mysqli_real_escape_string($koneksi, $taskData['status']);
+
+    $query = "UPDATE tasks SET 
+                task_name = '$taskName',
+                task_description = '$taskDescription',
+                due_date = '$dueDate',
+                responsible_user = '$responsibleUser',
+                status = '$status'
+                WHERE task_id = $taskID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
+}
+
+// Delete the task in the database
+function deleteTask($taskID) {
+    global $koneksi;
+
+    $query = "DELETE FROM tasks WHERE task_id = $taskID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
+}
+
 ?>
