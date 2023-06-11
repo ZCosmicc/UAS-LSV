@@ -139,6 +139,55 @@ function getUserData($table, $userID)
     return $row;
 }
 
+// Get member data
+function getMemberData($table)
+{
+    global $koneksi;
+    $result = mysqli_query($koneksi, "SELECT * FROM $table WHERE role = 'member'");
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
+// Delete the user in the database
+function deleteUser($userID) {
+    global $koneksi;
+
+    $query = "DELETE FROM users WHERE user_id = $userID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
+}
+
+// Get new registered user data
+// Retrieve the data of new registered users
+function getNewRegisteredUsers() {
+    global $koneksi;
+
+    $query = "SELECT user_photo, email, date_created FROM users WHERE role = 'member' ORDER BY date_created DESC LIMIT 5";
+    $result = mysqli_query($koneksi, $query);
+
+    // Check if the query was successful
+    if ($result) {
+        $users = array();
+
+        // Fetch the data as an associative array
+        while ($row = mysqli_fetch_assoc($result)) {
+            $users[] = $row;
+        }
+
+        // Free the result set
+        mysqli_free_result($result);
+
+        return $users;
+    } else {
+        // Query failed, return false or handle the error accordingly
+        return false;
+    }
+}
+
+
 // Update the user profile in the database based on the submitted data
 function updateUserProfile() {
     global $koneksi;
@@ -200,6 +249,18 @@ function addProject($projectData) {
     
     // Close the database connection
     mysqli_close($koneksi);
+}
+
+function searchProject($searchQuery) {
+    global $koneksi;
+
+    $query = "SELECT * FROM projects WHERE project_name LIKE '%$searchQuery%' OR project_description LIKE '%$searchQuery%'";
+    $result = mysqli_query($koneksi, $query);
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+    return $rows;
 }
 
 function addTask($taskData) {

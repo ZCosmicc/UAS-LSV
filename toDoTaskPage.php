@@ -125,12 +125,6 @@ if (isset($_GET["task_id"])) {
         <a class="side-toggle" href="#!">
           <i class="la la-bars"></i>  
         </a>
-        <div class="search-box">
-          <div class="search">
-            <input class="form-control border-0" type="search" placeholder="Type something..." aria-label="Search">
-            <a href="#">  <i class="la la-search"></i> </a>
-          </div>
-        </div>
       </div>
       <div class="topbar-right">
         <ul>
@@ -310,10 +304,15 @@ if (isset($_GET["task_id"])) {
 											<p class="task-status"><?php echo $tasklist["task_description"];?></p>
 										</div>
 										<div class="task-action">
+                      <?php if ($_SESSION["role"] === "admin"): ?>
 											<ul class="list-unstyled">
-                      <li><a href="#editTaskModal" data-toggle="modal" data-task-id="<?php echo $tasklist["task_id"]; ?>" class="edit-task-button"><i class="la la-edit"></i></a></li>
+                        <li><a href="#editTaskModal" data-toggle="modal" data-task-id="<?php echo $tasklist["task_id"]; ?>" class="edit-task-button"><i class="la la-edit"></i></a></li>
 												<li><a href="?task_id=<?php echo $tasklist["task_id"];?>&project_id=<?php echo $projectID; ?>"><i class="la la-trash-o"></i></a></li>
 											</ul>
+                      <?php elseif ($_SESSION["role"] === "member"): ?>
+                      <div class="hidden-item">
+                      </div>
+                      <?php endif; ?>
 										</div>
 									</li>
                   <?php endif; ?>

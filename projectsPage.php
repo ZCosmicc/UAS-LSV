@@ -11,6 +11,12 @@ require ("model.php");
   $userData = getUserData("users", $userID);
   $pjlists = getData("projects");
 
+  if (isset($_GET["search"])) {
+    $searchResults = searchProject($_GET["search"]);
+  } else {
+    $searchResults = $pjlists;
+  }
+
   
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if the form was submitted
@@ -24,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   );
 
   // Call the addProject function
- 
 
 if (isset($_POST["submit"])){
   if(addProject($_POST) > 0) {
@@ -85,12 +90,14 @@ if (isset($_POST["submit"])){
         <a class="side-toggle" href="#!">
           <i class="la la-bars"></i>  
         </a>
+        <form action="projectsPage.php" method="GET">
         <div class="search-box">
           <div class="search">
-            <input class="form-control border-0" type="search" placeholder="Type something..." aria-label="Search">
-            <a href="#">  <i class="la la-search"></i> </a>
+            <input class="form-control border-0" type="text" name="search" placeholder="Search project..." aria-label="Search">
+            <a type="submit"><i class="la la-search"></i></a>
           </div>
         </div>
+        </form>
       </div>
       <div class="topbar-right">
         <ul>
@@ -249,7 +256,7 @@ if (isset($_POST["submit"])){
     </div>
   </div>
   <div class="row">
-    <?php foreach ($pjlists as $pjlist) : ?>
+    <?php foreach ($searchResults as $pjlist) : ?>
       <div class="col-lg-4 col-sm-6">
         <div class="card custom-card">
           <div class="card-body custom-card-body">

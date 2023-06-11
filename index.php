@@ -15,6 +15,28 @@ require("model.php");
 
 	$userID = $_SESSION["user_id"];
 	$userData = getUserData("users", $userID);
+	$memberData = getMemberData("users");
+
+	// Call the delete user function
+	if (isset($_POST["delete"])) {
+		$userID = $_POST["user_id"];
+
+		if (deleteUser($userID) > 0) {
+			echo "
+				<script>
+					alert('User deleted successfully!');
+					document.location.href = 'index.php';
+				</script>
+			";
+		} else {
+			echo "
+				<script>
+					alert('User failed to delete!');
+					document.location.href = 'index.php';
+				</script>
+			";
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -315,80 +337,37 @@ require("model.php");
 									<thead>
 										<tr>
 											<th scope="col">User </th>
+											<th scope="col">Full Name</th>
 											<th scope="col">Position</th>
 											<th scope="col">Address</th>
 											<th scope="col">Gender</th>
-											<th scope="col">Start date</th>
 											<th scope="col">Completed Task</th>
 											<th scope="col">Actions</th>
 										</tr>
 									</thead>
 									<tbody>
+									<?php foreach ($memberData as $member) { ?>
 										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\01.jpg" width="40" height="40"  alt=""> </th>
-											<td>Accountant</td>
-											<td>802 Peninsula St. Madison, AL 35758</td>
-											<td>Male</td>
-											<td>2008/11/28</td>
+											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\<?php echo $member["user_photo"] ?>" width="40" height="40"  alt=""> </th>
+											<td><?php echo $member['full_name']; ?></td>
+											<td><?php echo $member['position']; ?></td>
+											<td><?php echo $member['address']; ?></td>
+											<td><?php echo $member['gender']; ?></td>
 											<td>
 												<div class="progress progress-h-5">
 													<div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 											</td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\02.jpg" width="40" height="40"  alt=""></th>
-											<td>Sales </td>
-											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
-											<td>Male</td>
-											<td>2001/08/12</td>
 											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
+												<form method="POST" action="index.php">
+													<input type="hidden" name="user_id" value="<?php echo $member['user_id']; ?>">
+													<button type="submit" class="btn btn-overlay-primary btn-icon btn-sm" name="delete" onclick="return confirm('Are you sure you want to delete this user?');">
+														<i class="la la-trash"></i>
+													</button>
+												</form>
 											</td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
 										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\03.jpg" width="40" height="40"  alt=""></th>
-											<td>Developer</td>
-											<td>46 St Paul Ave. Dickson, TN 37055</td>
-											<td>Female</td>
-											<td>2010/12/30</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="la la-edit"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\04.jpg" width="40" height="40"  alt=""></th>
-											<td>Designer</td>
-											<td>197 Hawthorne Rd. Beckley, WV 25801</td>
-											<td>Male</td>
-											<td>2012/06/02</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
-										</tr>
-										<tr>
-											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\05.jpg" width="40" height="40"  alt=""></th>
-											<td>Sales </td>
-											<td>412 S. Green Hill St. Asheboro, NC 27205</td>
-											<td>Female</td>
-											<td>2001/08/12</td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
-											<td><a class="btn btn-overlay-primary btn-icon btn-sm" href="#"><i class="fa fa-trash-o"></i> </a></td>
-										</tr>
+									<?php } ?>
 									</tbody>
 								</table>
 							</div>
@@ -396,162 +375,47 @@ require("model.php");
 					</div>
 				</div>
 				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">New Registered Users </h4>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="user">
-								<div class="user-item">
-									<div class="avatar avatar-md mr-3">
-										<img class="img-fluid" src="src\assets\images\team\05.jpg" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Airi Satou </a> </h6>
-										<span> airisatou@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="user-item">
-									<div class="avatar avatar-md mr-3 bg-secondary">
-										<img class="img-fluid" src="src\assets\images\team\13.png" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Bruno Nash	 </a> </h6>
-										<span> brunonash@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="user-item">
-									<div class="avatar avatar-md mr-3">
-										<img class="img-fluid" src="src\assets\images\team\05.jpg" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Cedric Kelly </a> </h6>
-										<span> cedrickelly@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="user-item">
-									<div class="avatar avatar-md mr-3">
-										<img class="img-fluid" src="src\assets\images\team\02.jpg" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Suki Burks </a></h6>
-										<span> sukiburks@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="user-item">
-									<div class="avatar avatar-md mr-3">
-										<img class="img-fluid" src="src\assets\images\team\05.jpg" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Yuri Berry </a></h6>
-										<span> Yyuriberry@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="user-item mb-2">
-									<div class="avatar avatar-md mr-3 mb-1">
-										<img class="img-fluid" src="src\assets\images\team\05.jpg" alt="">
-									</div>
-									<div class="user-name">
-										<h6><a href="#!">Airi Satou </a> </h6>
-										<span> airisatou@gmail.com</span>
-									</div>
-									<div class="user-action">
-										<div class="dropdown icon-dropdown">
-											<a class="btn-icon dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-inbox"></i>Inbox</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-refresh-sync-alert"></i>Refresh</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-gps"></i>Manage Widgets</a>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-portable-wifi"></i>Edit Widgets</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#"><i class="zmdi zmdi-settings"></i>Settings</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+    <div class="card">
+        <div class="card-title">
+            <div class="card-title-left">
+                <h4 class="card-title-text">New Registered Users</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="user">
+                <?php
+                // Retrieve the data of new registered users
+                $newUsers = getNewRegisteredUsers();
+
+                // Check if $newUsers is an array
+                if (is_array($newUsers)) {
+                    // Iterate over the user data and generate HTML code
+                    foreach ($newUsers as $user) {
+                        // Check if $user is an array and contains the expected keys
+                        if (is_array($user) && isset($user['user_photo']) && isset($user['email']) && isset($user['date_created'])) {
+                            echo '<div class="user-item">';
+                            echo '<div class="avatar avatar-md mr-3">';
+                            echo '<img class="img-fluid" src="src/assets/images/team/' . $user['user_photo'] . '" alt="">';
+                            echo '</div>';
+                            echo '<div class="user-name">';
+                            echo '<h6><a href="#!">' . $user['email'] . '</a></h6>';
+                            echo '<span>' . $user['date_created'] . '</span>';
+                            echo '</div>';
+                            echo '</div>';
+                        } else {
+                            echo '<p>Error: Invalid user data</p>';
+                        }
+                    }
+                } else {
+                    echo '<p>Error: Failed to retrieve new registered users</p>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 			</div>
 		</div>
 		<!-- Footer -->
