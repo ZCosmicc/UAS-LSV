@@ -306,10 +306,12 @@ if (isset($_GET["task_id"])) {
 										<div class="task-action">
                       <?php if ($_SESSION["role"] === "admin"): ?>
 											<ul class="list-unstyled">
+                        <p class="task-status badge badge-overlay-primary"><?php echo $tasklist["due_date"];?></p>
                         <li><a href="#editTaskModal" data-toggle="modal" data-task-id="<?php echo $tasklist["task_id"]; ?>" class="edit-task-button"><i class="la la-edit"></i></a></li>
 												<li><a href="?task_id=<?php echo $tasklist["task_id"];?>&project_id=<?php echo $projectID; ?>"><i class="la la-trash-o"></i></a></li>
 											</ul>
                       <?php elseif ($_SESSION["role"] === "member"): ?>
+                        <p class="task-status badge badge-overlay-primary"><?php echo $tasklist["due_date"];?></p>
                       <div class="hidden-item">
                       </div>
                       <?php endif; ?>

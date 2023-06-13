@@ -190,20 +190,20 @@ require ("model.php");
 <!-- **********  main-panel  ********** -->
 	<div class="main-panel">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-12 col-xxl-7">
 				<div class="card">
-          <div class="card-title">
-            <div class="card-title-left">
-              <h4 class="card-title-text">Calendar</h4>
-            </div>
-          </div>
+					<div class="card-title">
+						<div class="card-title-left">
+							<h4 class="card-title-text">Full Calendar</h4>
+						</div>
+					</div>
 				  <div class="card-body">
-				    <div id="calendar-list" class="fc-calendar fc-calendar-list"></div>
+				      <div id="calendar" class="fc-calendar"></div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 <!-- **********  Wrapper  ********** -->
 

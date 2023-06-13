@@ -112,7 +112,7 @@ if (isset($_POST["submit"])) {
           </div>
           <div class="form-bottom">
             <div class="forgot-pass">
-              <a href="forgot-password-01.html"> Forgot password? </a>
+              <a href="forgot-password-01.php"> Forgot password? </a>
             </div>
           </div>
           <button type="submit" name="submit" class="btn btn-primary">Login</button>

@@ -16,6 +16,9 @@ require("model.php");
 	$userID = $_SESSION["user_id"];
 	$userData = getUserData("users", $userID);
 	$memberData = getMemberData("users");
+	$pjlists = getData("projects");
+
+	date_default_timezone_set('Asia/Singapore');
 
 	// Call the delete user function
 	if (isset($_POST["delete"])) {
@@ -184,30 +187,30 @@ require("model.php");
 
 <div class="wrapper">
     <div class="sidebar-panel nicescrollbar sidebar-panel-light">
-      <ul class="sidebar-menu">
-        <li class="sidebar-header"> Navigation </li>
-        <li>
-        	<a href="index.php">
-        		<i class="la la-home"></i> <span>Dashboard</span>
-          	</a>
-        </li>
-      	<li>
-        	<a href="projectsPage.php">
-        		<i class="la la-file"></i> <span>Projects</span>
-        	</a>
-      	</li>
-		<li>
-        	<a href="calendar-list.php">
-        		<i class="la la-calendar"></i> <span>Calendar</span>
-        	</a>
-      	</li>
-		<li>
-			<a href="editProfile.php">
-			  <i class="la la-gear"></i> <span>Account Settings</span>
-			</a>
-		</li>
-    </ul>
-  </div>
+    	<ul class="sidebar-menu">
+			<li class="sidebar-header"> Navigation </li>
+			<li>
+				<a href="index.php">
+					<i class="la la-home"></i> <span>Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="projectsPage.php">
+					<i class="la la-file"></i> <span>Projects</span>
+				</a>
+			</li>
+			<li>
+				<a href="calendar-list.php">
+					<i class="la la-calendar"></i> <span>Calendar</span>
+				</a>
+			</li>
+			<li>
+				<a href="editProfile.php">
+				<i class="la la-gear"></i> <span>Account Settings</span>
+				</a>
+			</li>
+		</ul>
+  	</div>
   <!-- **********  main-panel  ********** -->
 	<div class="main-panel">
 		<div class="panel-hedding">
@@ -218,112 +221,34 @@ require("model.php");
 				</div>
 				<div class="col-lg-7">
 					<div class="alert bg-white shadow-sm alert-dismissible fade show mb-0" role="alert">
-						<i class="feather icon-alert-triangle text-primary mr-2"></i> Welcome back,  Project Manager!  Your last sign in at Yesterday, 16:54 PM
+						<i class="feather icon-alert-triangle text-primary mr-2"></i> Welcome back,  Project Manager!  Your last sign in at Yesterday, 23:54 PM
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">×</span>
 						</button>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-3 mt-lg-5">
-					<div class="card h-auto">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Recent Project</h4>
+			<div class="row mt-4">
+							<div class="col">
+								<div class="p-4 border-radius mb-4 alert alert-primary">
+									<h3 class="text-white"><?php echo count ($pjlists) ?></h3>
+									<span>Projects</span>
+								</div>
+							</div>
+							<div class="col"> 
+								<div class="p-4 border-radius mb-4 alert alert-secondary">
+									<h3 class="text-white"><?php echo count ($memberData) ?></h3>
+									<span>Members</span>
+								</div>
+							</div>
+							<div class="col">
+								<div class="p-4 border-radius mb-4 alert alert-success">
+									<h3 class="text-white"><?php echo date("h:i A") ?></h3>
+									<span>Current Time</span>
+								</div>
 							</div>
 						</div>
-						<div class="card-body">
-					     <div class="project-item">
-									<div class="project-title">
-										<div class="project-title-left">
-											<h5 class="mb-3"> <a href="#!"> Application development </a></h5>
-											<span class="badge badge-overlay-success">Active</span>
-										</div>
-									</div>
-									<div class="project-comments mt-1">
-										<p>Officia nam sed possimus repellat et, assumenda corporis velit.</p>
-									</div>
-									
-									<div class="project-status mt-2">
-										<div class="project-status-label ">
-											<span>Completed</span>
-											<span>60%</span>
-										</div>
-										<div class="progress progress-h-4">
-											<div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 mt-lg-5">
-					<div class="card h-auto">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Finished Project</h4>
-							</div>
-						</div>
-						<div class="card-body">
-					     <div class="project-item">
-									<div class="project-title">
-										<div class="project-title-left">
-											<h5 class="mb-3"> <a href="#!"> UI Design </a></h5>
-											<span class="badge badge-overlay-success">Finished</span>
-										</div>
-									</div>
-									<div class="project-comments mt-1">
-										<p>Officia nam sed possimus repellat et, assumenda corporis velit.</p>
-									</div>
-									
-									<div class="project-status mt-2">
-										<div class="project-status-label ">
-											<span>Completed</span>
-											<span>100%</span>
-										</div>
-										<div class="progress progress-h-4">
-											<div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 mt-lg-5">
-					<div class="card h-auto">
-						<div class="card-title">
-							<div class="card-title-left">
-								<h4 class="card-title-text">Pending Project</h4>
-							</div>
-						</div>
-						<div class="card-body">
-					     <div class="project-item">
-									<div class="project-title">
-										<div class="project-title-left">
-											<h5 class="mb-3"> <a href="#!"> Application development </a></h5>
-											<span class="badge badge-overlay-danger">Pending</span>
-										</div>
-									</div>
-									<div class="project-comments mt-1">
-										<p>Officia nam sed possimus repellat et, assumenda corporis velit.</p>
-									</div>
-									
-									<div class="project-status mt-2">
-										<div class="project-status-label ">
-											<span>Completed</span>
-											<span>85%</span>
-										</div>
-										<div class="progress progress-h-4">
-											<div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-						</div>
-					</div>
-				</div> 
-			</div>
-			<div class="row">
+			<div class="row mt-2">
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-title">
@@ -336,12 +261,12 @@ require("model.php");
 								<table class="table table-centered table-hover mb-0">
 									<thead>
 										<tr>
-											<th scope="col">User </th>
+											<th scope="col">User</th>
 											<th scope="col">Full Name</th>
+											<th scope="col">Email</th>
 											<th scope="col">Position</th>
 											<th scope="col">Address</th>
 											<th scope="col">Gender</th>
-											<th scope="col">Completed Task</th>
 											<th scope="col">Actions</th>
 										</tr>
 									</thead>
@@ -350,14 +275,10 @@ require("model.php");
 										<tr>
 											<th scope="row"><img class="rounded-circle mr-2" src="src\assets\images\team\<?php echo $member["user_photo"] ?>" width="40" height="40"  alt=""> </th>
 											<td><?php echo $member['full_name']; ?></td>
+											<td><?php echo $member['email']; ?></td>
 											<td><?php echo $member['position']; ?></td>
 											<td><?php echo $member['address']; ?></td>
 											<td><?php echo $member['gender']; ?></td>
-											<td>
-												<div class="progress progress-h-5">
-													<div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-												</div>
-											</td>
 											<td>
 												<form method="POST" action="index.php">
 													<input type="hidden" name="user_id" value="<?php echo $member['user_id']; ?>">
@@ -375,47 +296,45 @@ require("model.php");
 					</div>
 				</div>
 				<div class="col-lg-4">
-    <div class="card">
-        <div class="card-title">
-            <div class="card-title-left">
-                <h4 class="card-title-text">New Registered Users</h4>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="user">
-                <?php
-                // Retrieve the data of new registered users
-                $newUsers = getNewRegisteredUsers();
+					<div class="card">
+						<div class="card-title">
+							<div class="card-title-left">
+								<h4 class="card-title-text">New Registered Users</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="user">
+								<?php
+								// Retrieve the data of new registered users
+								$newUsers = getNewRegisteredUsers();
 
-                // Check if $newUsers is an array
-                if (is_array($newUsers)) {
-                    // Iterate over the user data and generate HTML code
-                    foreach ($newUsers as $user) {
-                        // Check if $user is an array and contains the expected keys
-                        if (is_array($user) && isset($user['user_photo']) && isset($user['email']) && isset($user['date_created'])) {
-                            echo '<div class="user-item">';
-                            echo '<div class="avatar avatar-md mr-3">';
-                            echo '<img class="img-fluid" src="src/assets/images/team/' . $user['user_photo'] . '" alt="">';
-                            echo '</div>';
-                            echo '<div class="user-name">';
-                            echo '<h6><a href="#!">' . $user['email'] . '</a></h6>';
-                            echo '<span>' . $user['date_created'] . '</span>';
-                            echo '</div>';
-                            echo '</div>';
-                        } else {
-                            echo '<p>Error: Invalid user data</p>';
-                        }
-                    }
-                } else {
-                    echo '<p>Error: Failed to retrieve new registered users</p>';
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+								// Check if $newUsers is an array
+								if (is_array($newUsers)) {
+									// Iterate over the user data and generate HTML code
+									foreach ($newUsers as $user) {
+										// Check if $user is an array and contains the expected keys
+										if (is_array($user) && isset($user['user_photo']) && isset($user['email']) && isset($user['date_created'])) {
+											echo '<div class="user-item">';
+											echo '<div class="avatar avatar-md mr-3">';
+											echo '<img class="img-fluid" src="src/assets/images/team/' . $user['user_photo'] . '" alt="">';
+											echo '</div>';
+											echo '<div class="user-name">';
+											echo '<h6><a href="#!">' . $user['email'] . '</a></h6>';
+											echo '<span>' . $user['date_created'] . '</span>';
+											echo '</div>';
+											echo '</div>';
+										} else {
+											echo '<p>Error: Invalid user data</p>';
+										}
+									}
+								} else {
+									echo '<p>Error: Failed to retrieve new registered users</p>';
+								}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Footer -->
@@ -456,6 +375,7 @@ require("model.php");
 
 <!-- custom -->
 <script src="src\js\custom.js"></script>
+<script src="src\js\script.js"></script>
 
 </body>
 

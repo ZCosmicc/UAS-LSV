@@ -1,5 +1,10 @@
 <?php
 require('koneksi.php');
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+
 
 //Get all data
 function getData($table)
@@ -222,16 +227,141 @@ function updateUserProfile() {
     return mysqli_affected_rows($koneksi);
 }
 
-function addProject($projectData) {
+function checkToken($token)
+{
+    global $koneksi;
+
+    $result = mysqli_query($koneksi, "SELECT * FROM forgot_password WHERE token = '$token'");
+    $row = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) === 1) {
+        $expiration = $row["expiration"];
+        if (date('Y-m-d H:i:s') > $expiration) {
+            return false;
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function forgotPassword($data) {
+    global $koneksi;
+
+    $email = $data["email"];
+    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
+
+    if (mysqli_num_rows($result) === 1) {
+        date_default_timezone_set('Asia/Singapore');
+
+        $row = mysqli_fetch_assoc($result);
+        $userID = $row["user_id"];
+        $token = uniqid();
+        $expired_at = date("Y-m-d H:i:s", time() + 60 * 60);
+        $query = "INSERT INTO forgot_password VALUES('', '$userID', '$token', '$expired_at')";
+
+        mysqli_query($koneksi, $query);
+
+        $mailer = new PHPMailer(true);
+
+        try {
+            // SMTP configuration
+            $smtpHost = 'smtp.gmail.com';
+            $smtpPort = 587;
+            $smtpUsername = 'farizfadillah612@gmail.com';
+            $smtpPassword = 'xdawgicscjmsuhvg';
+
+            $mailer->isSMTP();
+            $mailer->Host = $smtpHost;
+            $mailer->Port = $smtpPort;
+            $mailer->SMTPAuth = true;
+            $mailer->SMTPSecure = 'tls';
+            $mailer->Username = $smtpUsername;
+            $mailer->Password = $smtpPassword;
+
+            // Set up email content
+            $mailer->setFrom($smtpUsername, 'SIMP-System');
+            $mailer->addAddress($email);
+            $mailer->Subject = 'Set Up Your New Password';
+            $mailer->Body = "Click this link to reset and set up your new password: http://localhost/UAS%20LSV/reset-password.php?token=$token";
+
+            // Send email
+            $mailer->send();
+            return true;
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mailer->ErrorInfo}";
+            return false;
+        }
+    }
+}
+
+function resetPassword($newPassword, $confirmPassword) {
+
+    global $koneksi;
+
+    $token = $_GET["token"];
+    if ($newPassword != $confirmPassword) {
+        return false;
+    }
+
+    $result = mysqli_query($koneksi, "SELECT * FROM forgot_password WHERE token = '$token'");
+    $row = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) === 1) {
+        $userID = $row["user_id"];
+        $resultUser = mysqli_query($koneksi, "SELECT * FROM users WHERE user_id = '$userID'");
+        $rowUser = mysqli_fetch_assoc($resultUser);
+
+        $email = $rowUser["email"];
+        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET password = '$newPasswordHash' WHERE user_id = '$userID'";
+        mysqli_query($koneksi, $query);
+        $query2 = "DELETE FROM forgot_password WHERE token='$token'";
+        mysqli_query($koneksi, $query2);
+
+        $mailer = new PHPMailer(true);
+
+        try {
+            // SMTP configuration
+            $smtpHost = 'smtp.gmail.com';
+            $smtpPort = 587;
+            $smtpUsername = 'farizfadillah612@gmail.com';
+            $smtpPassword = 'xdawgicscjmsuhvg';
+
+            $mailer->isSMTP();
+            $mailer->Host = $smtpHost;
+            $mailer->Port = $smtpPort;
+            $mailer->SMTPAuth = true;
+            $mailer->SMTPSecure = 'tls';
+            $mailer->Username = $smtpUsername;
+            $mailer->Password = $smtpPassword;
+
+            // Set up email content
+            $mailer->setFrom($smtpUsername, 'SIMP-System');
+            $mailer->addAddress($email);
+            $mailer->Subject = 'Your Password Has Been Changed';
+            $mailer->Body = "Your password has been changed. If you didn't change your password, please contact the administrator.";
+
+            // Send email
+            $mailer->send();
+            return true;
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mailer->ErrorInfo}";
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function addProject($pjlist) {
     global $koneksi;
     
     // Escape the values to prevent SQL injection
     $created_by = $_SESSION["user_id"];
-    $projectName = mysqli_real_escape_string($koneksi, $projectData['project_name']);
-    $description = mysqli_real_escape_string($koneksi, $projectData['project_description']);
-    $createdDate = mysqli_real_escape_string($koneksi, $projectData['created_date']);
-    $deadlineDate = mysqli_real_escape_string($koneksi, $projectData['deadline_date']);
-    $status = mysqli_real_escape_string($koneksi, $projectData['status']);
+    $projectName = mysqli_real_escape_string($koneksi, $pjlist['project_name']);
+    $description = mysqli_real_escape_string($koneksi, $pjlist['project_description']);
+    $createdDate = mysqli_real_escape_string($koneksi, $pjlist['created_date']);
+    $deadlineDate = mysqli_real_escape_string($koneksi, $pjlist['deadline_date']);
+    $status = mysqli_real_escape_string($koneksi, $pjlist['status']);
     
     // Prepare the SQL query
     $sql = "INSERT INTO projects (project_name, project_description, created_date, deadline_date, created_by,  status) 
@@ -251,6 +381,25 @@ function addProject($projectData) {
     mysqli_close($koneksi);
 }
 
+function updateProject($projectData) {
+    global $koneksi;
+
+    $projectID = mysqli_real_escape_string($koneksi, $projectData['project_id']);
+    $projectName = mysqli_real_escape_string($koneksi, $projectData['project_name']);
+    $description = mysqli_real_escape_string($koneksi, $projectData['project_description']);
+    $deadlineDate = mysqli_real_escape_string($koneksi, $projectData['deadline_date']);
+    $status = mysqli_real_escape_string($koneksi, $projectData['status']);
+
+    $query = "UPDATE projects SET 
+                project_name = '$projectName',
+                project_description = '$description',
+                deadline_date = '$deadlineDate',
+                status = '$status'
+                WHERE project_id = $projectID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
+}
+
 function searchProject($searchQuery) {
     global $koneksi;
 
@@ -261,6 +410,14 @@ function searchProject($searchQuery) {
         $rows[] = $row;
     }
     return $rows;
+}
+
+function deleteProject($projectID) {
+    global $koneksi;
+
+    $query = "DELETE FROM projects WHERE project_id = $projectID";
+    mysqli_query($koneksi, $query);
+    return mysqli_affected_rows($koneksi);
 }
 
 function addTask($taskData) {
