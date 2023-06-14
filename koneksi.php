@@ -1,6 +1,6 @@
 <?php
 //Connect database
-$koneksi = mysqli_connect('150.136.247.113', 'fariz', 'Fariz123!', 'simp');
+$koneksi = mysqli_connect('10.0.0.60', 'fariz', 'Fariz123!', 'simp', 3306);
 
 //Check connection
 if(!$koneksi){
