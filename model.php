@@ -26,6 +26,7 @@ function register($data)
     // Set the timezone to Indonesian local time
     date_default_timezone_set('Asia/Jakarta');
 
+    $userID = rand(1234, 9999);
     $full_name = htmlspecialchars($data["full_name"]);
     $email = htmlspecialchars($data["email"]);
     $password = mysqli_real_escape_string($koneksi, $data["password"]);
@@ -40,7 +41,7 @@ function register($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // Add new user
-    $query = "INSERT INTO users VALUES('', '$full_name', '$email', '$password', '','$date_created', 'member', '', '', '', '', '')";
+    $query = "INSERT INTO users VALUES('$userID', '$full_name', '$email', '$password', '','$date_created', 'member', '', '', '', '', '')";
     $result = mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
