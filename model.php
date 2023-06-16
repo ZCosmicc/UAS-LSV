@@ -283,7 +283,7 @@ function forgotPassword($data) {
             $mailer->setFrom($smtpUsername, 'SIMP-System');
             $mailer->addAddress($email);
             $mailer->Subject = 'Set Up Your New Password';
-            $mailer->Body = "Click this link to reset and set up your new password: http://localhost/UAS%20LSV/reset-password.php?token=$token";
+            $mailer->Body = "Click this link to reset and set up your new password: http://mysimp.live/reset-password.php?token=$token";
 
             // Send email
             $mailer->send();
