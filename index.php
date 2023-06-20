@@ -341,7 +341,7 @@ require("model.php");
 		<footer class="footer pb-3">
 			<div class="row text-center text-md-left">
 		    <div class="col-md-6">
-		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP </a></strong> All Rights Reserved</p>
+		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP | 01</a></strong> All Rights Reserved</p>
 		    </div>
 		    <div class="col-md-6 text-md-right">
 		      <div class="footer-links">

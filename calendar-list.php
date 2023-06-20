@@ -203,6 +203,22 @@ require ("model.php");
 				</div>
 			</div>
 		</div>
+		<!-- Footer -->
+		<footer class="footer pb-3">
+			<div class="row text-center text-md-left">
+		    <div class="col-md-6">
+		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP | 01</a></strong> All Rights Reserved</p>
+		    </div>
+		    <div class="col-md-6 text-md-right">
+		      <div class="footer-links">
+		        <ul class="list-unstyled list-inline mb-0">
+					<li class="list-inline-item"><a class="text-dark" href="mailto:zencatzcosmic@gmail.com?subject=SIMP%20-%20ASK">Contact us</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		</footer>
+		<!-- Footer -->
 	</div>
 </div>
 <!-- **********  Wrapper  ********** -->

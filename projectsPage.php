@@ -348,6 +348,22 @@ if (isset($_GET["project_id"])) {
         </div>
     <?php endforeach; ?>
   </div>
+  <!-- Footer -->
+  <footer class="footer pb-3">
+			<div class="row text-center text-md-left">
+		    <div class="col-md-6">
+		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP | 01</a></strong> All Rights Reserved</p>
+		    </div>
+		    <div class="col-md-6 text-md-right">
+		      <div class="footer-links">
+		        <ul class="list-unstyled list-inline mb-0">
+					<li class="list-inline-item"><a class="text-dark" href="mailto:zencatzcosmic@gmail.com?subject=SIMP%20-%20ASK">Contact us</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		</footer>
+		<!-- Footer -->
 </div>
   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
