@@ -232,6 +232,7 @@ function checkToken($token)
 {
     global $koneksi;
 
+    $token = $_GET["token"];
     $result = mysqli_query($koneksi, "SELECT * FROM forgot_password WHERE token = '$token'");
     $row = mysqli_fetch_assoc($result);
     if (mysqli_num_rows($result) === 1) {
@@ -250,16 +251,15 @@ function forgotPassword($data) {
 
     $email = $data["email"];
     $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
-
+    $row = mysqli_fetch_assoc($result);
     if (mysqli_num_rows($result) === 1) {
         date_default_timezone_set('Asia/Singapore');
 
-        $row = mysqli_fetch_assoc($result);
         $userID = $row["user_id"];
         $token = uniqid();
+        $id = rand(1, 9999);
         $expired_at = date("Y-m-d H:i:s", time() + 60 * 60);
-        $query = "INSERT INTO forgot_password VALUES('', '$userID', '$token', '$expired_at')";
-
+        $query = "INSERT INTO forgot_password VALUES('$id', '$userID', '$token', '$expired_at')";
         mysqli_query($koneksi, $query);
 
         $mailer = new PHPMailer(true);
@@ -283,7 +283,7 @@ function forgotPassword($data) {
             $mailer->setFrom($smtpUsername, 'SIMP-System');
             $mailer->addAddress($email);
             $mailer->Subject = 'Set Up Your New Password';
-            $mailer->Body = "Click this link to reset and set up your new password: http://mysimp.live/reset-password.php?token=$token";
+            $mailer->Body = "Click this link to reset and set up your new password: https://mysimp.live/reset-password.php?token=$token";
 
             // Send email
             $mailer->send();
