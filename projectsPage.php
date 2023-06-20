@@ -297,8 +297,8 @@ if (isset($_GET["project_id"])) {
   <div class="row">
     <?php foreach ($searchResults as $pjlist) : ?>
         <div class="col-lg-4 col-sm-6">
-            <div class="card custom-card">
-                <div class="card-body custom-card-body">
+            <div class="card">
+                <div class="card-body">
                     <div class="project-item">
                         <div class="project-title mb-3">
                             <div class="project-title-left">
