@@ -362,7 +362,7 @@ if (isset($_GET["project_id"])) {
 		      </div>
 		    </div>
 		  </div>
-		</footer>
+	</footer>
 		<!-- Footer -->
 </div>
   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
