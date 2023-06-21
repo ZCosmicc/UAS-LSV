@@ -271,100 +271,101 @@ if (isset($_GET["project_id"])) {
 		  </li>
     </ul>
   </div>
-</div>
-
-
-<!-- **********  main-panel  ********** -->
-<div class="main-panel">
-  <div class="panel-hedding">
-    <div class="row mb-4">
-      <div class="col-md-6">
-        <h1>Your Projects</h1>
-        <p>Let's get to work</p>
-      </div>
-      <div class="col-md-6">
-        <?php if ($_SESSION["role"] === "admin"): ?>
-          <div class="add-new">
-            <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-03" fdprocessedid="lmb1tq"> <i class="feather icon-plus"></i> Add new</a>
-          </div>
-        <?php elseif ($_SESSION["role"] === "member"): ?>
-          <div class="hidden-item">
-          </div>
-        <?php endif; ?>
+  
+  <!-- **********  main-panel  ********** -->
+  <div class="main-panel">
+    <div class="panel-hedding">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h1>Your Projects</h1>
+          <p>Let's get to work</p>
+        </div>
+        <div class="col-md-6">
+          <?php if ($_SESSION["role"] === "admin"): ?>
+            <div class="add-new">
+              <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-03" fdprocessedid="lmb1tq"> <i class="feather icon-plus"></i> Add new</a>
+            </div>
+          <?php elseif ($_SESSION["role"] === "member"): ?>
+            <div class="hidden-item">
+            </div>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <?php foreach ($searchResults as $pjlist) : ?>
-        <div class="col-lg-4 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="project-item">
-                        <div class="project-title mb-3">
-                            <div class="project-title-left">
-                                <h5><a href="toDoTaskPage.php?project_id=<?php echo $pjlist["project_id"]?>"><?php echo $pjlist["project_name"]; ?></a></h5>
-                            </div>
-                            <div class="project-badge">
-                                <?php if ($pjlist["status"] == "In Progress") : ?>
-                                    <span class="badge badge-overlay-primary ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
-                                <?php elseif ($pjlist["status"] == "Pending") : ?>
-                                    <span class="badge badge-pill badge-warning ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
-                                <?php elseif ($pjlist["status"] == "Completed") : ?>
-                                    <span class="badge badge-overlay-success ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="project-comments mt-4">
-                            <h6 class="mb-2">Description : </h6>
-                            <p><?php echo $pjlist["project_description"]; ?></p>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col">
-                                <div class="project-deadline">
-                                    <h6 class="mb-2">Start date: </h6>
-                                    <p><?php echo $pjlist["created_date"]; ?></p>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="project-deadline">
-                                    <h6 class="mb-2">End date: </h6>
-                                    <p><?php echo $pjlist["deadline_date"]; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="task-action">
-                          <?php if ($_SESSION["role"] === "admin"): ?>
-											      <ul class="list-unstyled">
-												      <li><a href="?project_id=<?php echo $pjlist["project_id"];?>"><i class="la la-trash-o"></i></a></li>
-											      </ul>
-                          <?php elseif ($_SESSION["role"] === "member"): ?>
-                            <div class="hidden-item">
-                            </div>
-                          <?php endif; ?>
-										    </div>
-                    </div>
-                </div>
+    <div class="row">
+      <?php foreach ($searchResults as $pjlist) : ?>
+          <div class="col-lg-4 col-sm-6">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="project-item">
+                          <div class="project-title mb-3">
+                              <div class="project-title-left">
+                                  <h5><a href="toDoTaskPage.php?project_id=<?php echo $pjlist["project_id"]?>"><?php echo $pjlist["project_name"]; ?></a></h5>
+                              </div>
+                              <div class="project-badge">
+                                  <?php if ($pjlist["status"] == "In Progress") : ?>
+                                      <span class="badge badge-overlay-primary ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
+                                  <?php elseif ($pjlist["status"] == "Pending") : ?>
+                                      <span class="badge badge-pill badge-warning ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
+                                  <?php elseif ($pjlist["status"] == "Completed") : ?>
+                                      <span class="badge badge-overlay-success ml-2 float-right"><?php echo $pjlist["status"]; ?></span>
+                                  <?php endif; ?>
+                              </div>
+                          </div>
+                          <div class="project-comments mt-4">
+                              <h6 class="mb-2">Description : </h6>
+                              <p><?php echo $pjlist["project_description"]; ?></p>
+                          </div>
+                          <div class="row mt-5">
+                              <div class="col">
+                                  <div class="project-deadline">
+                                      <h6 class="mb-2">Start date: </h6>
+                                      <p><?php echo $pjlist["created_date"]; ?></p>
+                                  </div>
+                              </div>
+                              <div class="col">
+                                  <div class="project-deadline">
+                                      <h6 class="mb-2">End date: </h6>
+                                      <p><?php echo $pjlist["deadline_date"]; ?></p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="task-action">
+                            <?php if ($_SESSION["role"] === "admin"): ?>
+                              <ul class="list-unstyled">
+                                <li><a href="?project_id=<?php echo $pjlist["project_id"];?>"><i class="la la-trash-o"></i></a></li>
+                              </ul>
+                            <?php elseif ($_SESSION["role"] === "member"): ?>
+                              <div class="hidden-item">
+                              </div>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      <?php endforeach; ?>
+    </div>
+    <!-- Footer -->
+    <footer class="footer pb-3">
+        <div class="row text-center text-md-left">
+          <div class="col-md-6">
+            <p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP | 01</a></strong> All Rights Reserved</p>
+          </div>
+          <div class="col-md-6 text-md-right">
+            <div class="footer-links">
+              <ul class="list-unstyled list-inline mb-0">
+            <li class="list-inline-item"><a class="text-dark" href="mailto:zencatzcosmic@gmail.com?subject=SIMP%20-%20ASK">Contact us</a></li>
+              </ul>
             </div>
+          </div>
         </div>
-    <?php endforeach; ?>
+    </footer>
+      <!-- Footer -->
   </div>
-  <!-- Footer -->
-  <footer class="footer pb-3">
-			<div class="row text-center text-md-left">
-		    <div class="col-md-6">
-		    	<p>Copyright © <script>document.write(new Date().getFullYear())</script> <strong><a target="_blank" href="https://www.zcostudio.tech/">SIMP | 01</a></strong> All Rights Reserved</p>
-		    </div>
-		    <div class="col-md-6 text-md-right">
-		      <div class="footer-links">
-		        <ul class="list-unstyled list-inline mb-0">
-					<li class="list-inline-item"><a class="text-dark" href="mailto:zencatzcosmic@gmail.com?subject=SIMP%20-%20ASK">Contact us</a></li>
-		        </ul>
-		      </div>
-		    </div>
-		  </div>
-	</footer>
-		<!-- Footer -->
 </div>
+
+
   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
