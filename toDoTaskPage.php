@@ -259,10 +259,7 @@ if (isset($_GET["task_id"])) {
 		  </li>
     </ul>
   </div>
-</div>
-
-
-<!-- **********  main-panel  ********** -->
+  <!-- **********  main-panel  ********** -->
 <?php if (!empty($projectID)) : ?>
   <?php $project = getData("projects WHERE project_id = $projectID")[0]; ?>
 <div class="main-panel">
@@ -327,6 +324,8 @@ if (isset($_GET["task_id"])) {
 	</div>
 </div>
 <?php endif; ?>
+</div>
+
   <div class="modal fade" id="exampleModal-03" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
